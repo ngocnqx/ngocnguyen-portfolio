@@ -247,25 +247,33 @@ section.block { padding: 4rem 0; border-top: 1px solid var(--rule); }
 body.viewing #home { display: none; }
 body.viewing #detail { display: block; }
 .back { background: none; border: 0; color: var(--accent-ink); font-size: 1rem; padding: 0; cursor: pointer; }
-#detail h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; letter-spacing: -0.02em; margin: 1.25rem 0 0.75rem; max-width: 22ch; font-weight: 600; }
-#detail .lede { font-size: 1.22rem; max-width: 40rem; margin: 0 0 2rem; }
+#detail h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; letter-spacing: -0.02em; margin: 1.5rem auto 1rem; max-width: 30ch; font-weight: 600; text-align: center; }
+#detail .lede { font-size: 1.15rem; line-height: 1.75; max-width: 56rem; margin: 0 auto 2.5rem; text-align: center; }
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; margin: 0 0 2.75rem; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 .facts div { padding: 1rem 1.1rem; border-right: 1px solid var(--rule); }
 .facts div:last-child { border-right: 0; }
 .facts dt { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 0.2rem; }
 .facts dd { margin: 0; font-size: 1rem; line-height: 1.45; }
 @media (max-width: 700px) { .facts div { border-right: 0; border-bottom: 1px solid var(--rule); } .facts div:last-child { border-bottom: 0; } }
-.plinks { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: -1.5rem 0 2.5rem; }
+.plinks { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem; margin: -1.5rem 0 2.5rem; }
 .plinks a { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
-.detail-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem 3rem; margin-bottom: 2.5rem; }
+.detail-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem 3rem; max-width: 900px; margin: 0 auto 1rem; }
 .detail-cols h2 { font-size: 1.2rem; margin: 0 0 0.6rem; font-weight: 600; }
 .detail-cols ul { margin: 0; padding-left: 1.1rem; }
 .detail-cols li { margin-bottom: 0.4rem; }
-figure { margin: 0 0 2.5rem; }
+.dsec { max-width: 760px; margin: 3.25rem auto 0; padding-top: 2.25rem; border-top: 1px solid var(--rule); }
+.dsec h2 { font-size: 1.7rem; font-weight: 600; line-height: 1.2; margin: 0 0 0.9rem; text-align: center; }
+.dsec p { margin: 0 0 1rem; line-height: 1.75; }
+.dsec ul { margin: 0 0 1rem; padding-left: 1.2rem; }
+.dsec li { margin-bottom: 0.45rem; line-height: 1.65; }
+.code { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.82rem; line-height: 1.55; margin: 0.5rem 0 1.25rem; }
+.code code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; color: var(--ink); }
+figure { max-width: 640px; margin: 1.75rem auto 2rem; }
+.back-end { display: block; margin: 3rem auto 0; }
 .fig-box { background: var(--figure-bg); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .fig-box img { width: 100%; height: auto; }
 .fig-missing { aspect-ratio: 16 / 9; display: grid; place-items: center; text-align: center; padding: 1rem; font-size: 0.95rem; color: var(--ink-soft); }
-figcaption { font-size: 0.98rem; color: var(--ink-soft); margin-top: 0.6rem; max-width: 46rem; }
+figcaption { font-size: 0.84rem; line-height: 1.5; color: var(--ink-soft); margin: 0.55rem auto 0; max-width: 600px; text-align: center; }
 figcaption strong { color: var(--ink); font-weight: 500; }
 
 /* ---------- Footer ---------- */
@@ -288,6 +296,7 @@ footer .links a:hover { color: var(--accent-ink); }
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#activities">Leadership</a>
     </nav>
     <a class="cta" href="mailto:nguyengo@dickinson.edu">Get in touch</a>
   </div>
@@ -389,8 +398,6 @@ footer .links a:hover { color: var(--accent-ink); }
       <div><h2>Experience</h2></div>
       <div>
         <ol class="timeline" id="jobs"></ol>
-        <h3 class="sub-h">Leadership, entrepreneurship and volunteering</h3>
-        <ol class="timeline" id="leadership"></ol>
       </div>
     </div>
   </section>
@@ -403,6 +410,14 @@ footer .links a:hover { color: var(--accent-ink); }
         <p>Click any project to see the full method, findings, and visuals.</p>
       </div>
       <ul class="proj-grid" id="proj-list"></ul>
+    </div>
+  </section>
+
+  <!-- ===================== LEADERSHIP & EXTRACURRICULARS ===================== -->
+  <section class="block" id="activities">
+    <div class="wrap block-grid">
+      <div><h2>Leadership &amp; Extracurriculars</h2></div>
+      <div><ol class="timeline" id="leadership"></ol></div>
     </div>
   </section>
 </div>
@@ -536,250 +551,881 @@ const LEADERSHIP = [
    placeholder box shows instead, so you can see what still needs adding. */
 const PROJECTS = [
   {
-    id: "vnpay-rfm",
-    title: "Customer Segmentation for a Movie-Ticketing Platform",
-    kind: "Python, SQL, Clustering",
-    tags: ["RFM Segmentation", "K-means Clustering", "25.2M+ Transactions", "Retention"],
-    teaser: "Turned 25.2M ticket purchases from 1M+ customers into five value tiers, four behavioral segments, and three marketing plays.",
-    lede: "During my internship at VNPay, I analyzed more than 25 million movie-ticket purchases to answer a deceptively simple question: who goes to the cinema, when, and why do so many of them stop? I profiled viewing habits, scored every customer on recency and frequency, clustered them by taste and timing, and translated the results into concrete campaign recommendations for the marketing team.",
-    facts: [
-      { k: "Tools", v: "Python, SQL" },
-      { k: "Methods", v: "RFM scoring, K-means clustering (4 clusters), time-series and calendar analysis" },
-      { k: "Data", v: "25,240,536 transactions from 1,015,828 customers" },
-      { k: "Question", v: "Which customers are worth re-engaging, and what would bring them back?" }
+    "id": "vnpay-rfm",
+    "title": "Customer Segmentation for a Movie-Ticketing Platform",
+    "kind": "Python, SQL, Clustering",
+    "tags": [
+      "RFM Segmentation",
+      "K-means Clustering",
+      "25.2M+ Transactions",
+      "Retention"
     ],
-    lists: [
-      { h: "What I did", items: [
-        "Cleaned and aggregated the raw transaction log in SQL, then profiled customers by generation, city tier, cinema, and booking channel",
-        "Mapped demand by day, hour, and holiday period to identify when customers actually buy",
-        "Scored every customer on recency and frequency and grouped them into five RFM value tiers",
-        "Clustered customers with K-means on genre preference and purchase timing, producing four distinct behavioral segments",
-        "Turned the analysis into three campaign proposals and presented them to team leads and cross-functional stakeholders"
-      ]},
-      { h: "Key findings", items: [
-        "Demand is overwhelmingly seasonal: daily transactions climb from roughly 10,000 on an ordinary day to more than a million at the Lunar New Year peak, with smaller surges at Christmas and the New Year",
-        "Viewing is an after-work habit: showtimes from 18:00 to 19:00 account for about 14% of sessions each, and even late-evening slots outsell every daytime hour",
-        "In peak periods, 70 to 90% of viewers choose one of the one or two most popular titles, typically a Vietnamese comedy or romance released within the previous two weeks",
-        "The audience is young and urban: Gen Z makes up roughly 85% of customers with a known age, and about 69% live in special-class cities (Hanoi and Ho Chi Minh City)",
-        "Retention is strong but leaky: Champions and Loyal customers together account for over 41% of the base, yet a further 38% have lapsed, including 16% who were once high-value"
-      ]},
-      { h: "Four behavioral segments", items: [
-        "Cluster 0, the devoted drama fans (15% of customers): drawn to drama, thrillers, and crime; buy throughout the week, averaging 74 transactions each, and are largely loyal",
-        "Cluster 1, the occasional holiday crowd (59%): favor mainstream comedy, romance, and horror, but surface almost exclusively at major holidays and on special days such as 8 March; most are recent or already lapsed, averaging just 6 transactions",
-        "Cluster 2, the families (23%): prefer adventure, fantasy, and animation, and concentrate their visits at the end of the week, from Thursday to Saturday",
-        "Cluster 3, the cinephiles (3%): a small but intensely engaged group that gravitates toward science fiction, documentaries, and mystery, averaging 167 transactions each"
-      ]},
-      { h: "Recommendations", items: [
-        "Concentrate social-media spend on popular Vietnamese comedies and romances in their first week of release, timed to the four windows that drive demand: Christmas (22 to 27 December), the New Year (28 December to 2 January), Lunar New Year, and the 30 April to 1 May holiday (29 April to 4 May)",
-        "Launch weekend family bundles from Thursday to Sunday on animation, adventure, and fantasy titles, such as discounts on four or more tickets, child pricing, and complimentary popcorn or drinks",
-        "Partner on ride-hailing vouchers to and from cinemas on weekends and family-heavy days, lowering the practical barrier to a trip to the cinema"
-      ]}
+    "teaser": "Turned 25.2M ticket purchases from 1M+ customers into five value tiers, four behavioral segments, and three marketing plays.",
+    "lede": "During my internship at VNPay, I analyzed more than 25 million movie-ticket purchases to answer a deceptively simple question: who goes to the cinema, when, and why do so many of them stop? I profiled viewing habits, scored every customer on recency and frequency, clustered them by taste and timing, and translated the results into concrete campaign recommendations for the marketing team.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Python, SQL"
+      },
+      {
+        "k": "Methods",
+        "v": "RFM scoring, K-means clustering (4 clusters), time-series and calendar analysis"
+      },
+      {
+        "k": "Data",
+        "v": "25,240,536 transactions from 1,015,828 customers"
+      },
+      {
+        "k": "Question",
+        "v": "Which customers are worth re-engaging, and what would bring them back?"
+      }
     ],
-    figures: [
-      { src: "img/vnpay-rfm/customer-base.png", title: "Who the customers are", caption: "Gen Z dominates every age group with a known birth year, and special-class cities account for roughly 69% of all customers." },
-      { src: "img/vnpay-rfm/daily-transactions.png", title: "Demand by day", caption: "Daily transactions stay modest for most of the year, then surge around Christmas and the New Year and explode during the Lunar New Year holiday, when a single day can exceed a million purchases." },
-      { src: "img/vnpay-rfm/session-hours.png", title: "Demand by hour", caption: "Share of sessions by showtime. Attendance builds through the afternoon, peaks between 18:00 and 19:00, and tapers after 20:00, although late-evening slots still outsell every daytime hour." },
-      { src: "img/vnpay-rfm/cinemas-channels.png", title: "Where tickets are sold", caption: "Tickets by cinema (left) and by booking channel (right). A handful of cinemas and two to four channels capture the overwhelming majority of sales, leaving a long tail of minor players." },
-      { src: "img/vnpay-rfm/segments.png", title: "Five RFM value tiers", caption: "About 1.02M customers by recency and frequency. Loyal customers form the largest tier (24%), but Lost customers are close behind (22%), which makes win-back campaigns a clear priority." },
-      { src: "img/vnpay-rfm/cluster-sizes.png", title: "How the four clusters differ in size and engagement", caption: "Cluster 1 holds 59% of customers but averages only 6 transactions each, whereas the tiny Cluster 3 averages 167. The right panel shows how purchase frequency is distributed within each cluster." },
-      { src: "img/vnpay-rfm/cluster-genres.png", title: "What each cluster watches", caption: "Each row shows how a genre's viewers are spread across the four clusters. Cluster 0 dominates crime, thrillers, and drama; Cluster 2 leads on adventure and fantasy; Cluster 3 over-indexes on documentaries and science fiction." },
-      { src: "img/vnpay-rfm/cluster-profiles.png", title: "Cluster profiles by RFM tier, generation, and city", caption: "Cluster 1 is made up largely of Recent and Lost customers, while Clusters 0 and 3 lean toward Champions and Loyal customers. Gen Z and special-class cities dominate every cluster." },
-      { src: "img/vnpay-rfm/cluster-timelines.png", title: "Daily transactions by cluster", caption: "All four clusters peak in the same holiday windows, but Cluster 1 barely registers outside them, confirming that its members are seasonal rather than habitual viewers." },
-      { src: "img/vnpay-rfm/cluster-calendars.png", title: "Purchase calendars by cluster", caption: "Calendar heatmaps of purchase volume, where red marks the busiest days. Clusters 0 and 3 buy steadily across the week, Cluster 1 appears mainly around holidays and special dates, and Cluster 2 clusters its visits at the end of the week." }
+    "lists": [
+      {
+        "h": "What I did",
+        "items": [
+          "Profiled 25.2M ticket purchases by customer, time, film, cinema, and booking channel",
+          "Scored every customer on recency and frequency and grouped them into five value tiers",
+          "Clustered customers by taste and timing with K-means, producing four segments",
+          "Turned the findings into three campaign proposals for the marketing team"
+        ]
+      },
+      {
+        "h": "Main takeaways",
+        "items": [
+          "Demand is driven by holidays and after-work hours",
+          "In peak periods, most viewers choose the same one or two hit films",
+          "Over 41% of customers are loyal, but 38% have already lapsed",
+          "Each of the four segments calls for a different marketing approach"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "Who the customers are",
+        "text": [
+          "The customer base is young and overwhelmingly urban. Among customers with a known birth year, Gen Z accounts for roughly 85% (372,362 people), far ahead of Gen Y (62,680) and Gen X (5,140).",
+          "Geography is just as concentrated. About 69% of all customers (699,278) live in special-class cities, Vietnam's two largest metropolitan areas. Class I and Class II cities contribute similar numbers of customers (160,055 and 144,781), even though Class I cities are considerably larger."
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/customer-base.png",
+            "title": "Who the customers are",
+            "caption": "Gen Z dominates every age group with a known birth year, and special-class cities account for roughly 69% of all customers."
+          }
+        ]
+      },
+      {
+        "h": "When people go to the cinema",
+        "text": [
+          "Demand is overwhelmingly seasonal. On an ordinary day the platform processes around 10,000 transactions; during the Lunar New Year holiday, that figure climbs above a million, with smaller but pronounced surges at Christmas and the New Year. Across the week, sales concentrate from Thursday to Saturday.",
+          "Within the day, cinema-going is an after-work habit. The 18:00 and 19:00 showtimes each account for about 14% of sessions. Attendance tapers after 20:00, yet even late-evening slots outsell every daytime hour."
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/daily-transactions.png",
+            "title": "Demand by day",
+            "caption": "Daily transactions stay modest for most of the year, then surge around Christmas and the New Year and explode during the Lunar New Year holiday."
+          },
+          {
+            "src": "img/vnpay-rfm/session-hours.png",
+            "title": "Demand by hour",
+            "caption": "Share of sessions by showtime. Attendance peaks between 18:00 and 19:00 and tapers after 20:00."
+          }
+        ]
+      },
+      {
+        "h": "What they choose to watch",
+        "text": [
+          "During peak periods, 70 to 90% of viewers choose one of the one or two most popular titles showing at the time. These hits share a clear profile: they are Vietnamese films, usually comedies or romances, released within the previous one to two weeks. Examples include Công Tử Bạc Liêu, Chị Dâu, 404 Chạy Ngay Đi, Bộ Tứ Báo Thủ, Nụ Hôn Bạc Tỷ, Yêu Nhầm Bạn Thân, and Nhà Gia Tiên.",
+          "Genre tastes also vary by city. Science-fiction audiences are concentrated almost entirely in special-class cities, whereas comedy, romance, crime, and horror are spread much more evenly across city tiers."
+        ]
+      },
+      {
+        "h": "Where tickets are sold",
+        "text": [
+          "Sales are highly concentrated among a few players. Three cinema chains each sold more than five million tickets, while most others sold fewer than two million. Booking channels follow the same pattern: a single channel handled almost ten million tickets, and two to four channels account for the vast majority of sales."
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/cinemas-channels.png",
+            "title": "Where tickets are sold",
+            "caption": "Tickets by cinema (left) and by booking channel (right). A handful of cinemas and channels capture most sales."
+          }
+        ]
+      },
+      {
+        "h": "Five RFM value tiers",
+        "text": [
+          "Scoring every customer on recency and frequency produced five value tiers: Loyal customers (24.0%), Lost customers (22.0%), Recent customers (20.4%), Champions (17.4%), and Lost Valuable customers (16.1%).",
+          "The picture is mixed. Champions and Loyal customers together make up more than 41% of the base, a sign of strong retention. Yet 38% of customers have lapsed, and 16% were once high-value, which makes a win-back campaign the single most valuable opportunity."
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/segments.png",
+            "title": "Five RFM value tiers",
+            "caption": "About 1.02M customers by recency and frequency. Loyal customers form the largest tier, but Lost customers are close behind."
+          }
+        ]
+      },
+      {
+        "h": "Four behavioral segments",
+        "text": [
+          "To understand why customers behave differently, I clustered them with K-means on genre preferences and purchase timing. Four distinct segments emerged, differing sharply in size and engagement:"
+        ],
+        "bullets": [
+          "Cluster 0, the devoted drama fans (15% of customers): drawn to drama, thrillers, and crime; buy throughout the week, averaging 74 transactions each, and are largely loyal",
+          "Cluster 1, the occasional holiday crowd (59%): favor mainstream comedy, romance, and horror, but appear almost exclusively at major holidays and on special days such as 8 March; most are recent or already lapsed, averaging just 6 transactions",
+          "Cluster 2, the families (23%): prefer adventure, fantasy, and animation, and concentrate their visits at the end of the week",
+          "Cluster 3, the cinephiles (3%): a small but intensely engaged group drawn to science fiction, documentaries, and mystery, averaging 167 transactions each"
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/cluster-sizes.png",
+            "title": "Size and engagement by cluster",
+            "caption": "Cluster 1 holds 59% of customers but averages only 6 transactions each, whereas the tiny Cluster 3 averages 167."
+          },
+          {
+            "src": "img/vnpay-rfm/cluster-genres.png",
+            "title": "What each cluster watches",
+            "caption": "How each genre's viewers are spread across the clusters. Cluster 0 dominates crime and drama; Cluster 2 leads on adventure and fantasy; Cluster 3 over-indexes on documentaries and science fiction."
+          },
+          {
+            "src": "img/vnpay-rfm/cluster-profiles.png",
+            "title": "Cluster profiles",
+            "caption": "Cluster 1 consists largely of Recent and Lost customers, while Clusters 0 and 3 lean toward Champions and Loyal customers."
+          }
+        ]
+      },
+      {
+        "h": "When each segment buys",
+        "text": [
+          "All four segments peak in the same holiday windows, but their weekly rhythms differ. The drama fans and the cinephiles buy steadily throughout the week, the holiday crowd barely appears outside major holidays and special dates, and families concentrate their visits from Thursday to Saturday."
+        ],
+        "figures": [
+          {
+            "src": "img/vnpay-rfm/cluster-timelines.png",
+            "title": "Daily transactions by cluster",
+            "caption": "All clusters peak in the same holiday windows, but Cluster 1 barely registers outside them."
+          },
+          {
+            "src": "img/vnpay-rfm/cluster-calendars.png",
+            "title": "Purchase calendars by cluster",
+            "caption": "Red marks the busiest days. Clusters 0 and 3 buy steadily, Cluster 1 clusters around holidays, and Cluster 2 favors the end of the week."
+          }
+        ]
+      },
+      {
+        "h": "Recommendations",
+        "bullets": [
+          "Concentrate social-media spend on popular Vietnamese comedies and romances in their first week of release, timed to the four windows that drive demand: Christmas (22 to 27 December), the New Year (28 December to 2 January), Lunar New Year, and the 30 April to 1 May holiday",
+          "Launch weekend family bundles from Thursday to Sunday on animation, adventure, and fantasy titles, such as discounts on four or more tickets, child pricing, and complimentary popcorn or drinks",
+          "Partner on ride-hailing vouchers to and from cinemas on weekends and family-heavy days, lowering the practical barrier to a trip to the cinema"
+        ]
+      }
     ]
   },
   {
-    id: "maersk-trade-risk",
-    title: "Maersk Trade Value & Mode-Switching Risk",
-    kind: "Power BI, SQL, Supply Chain",
-    tags: ["UN Comtrade", "Sea Dependency", "Air Feasibility", "Data Quality"],
-    teaser: "Mapped $33T of trade across 1,288 products to find the goods and countries that would be hit hardest if sea routes were disrupted, and that cannot simply be flown instead.",
-    lede: "If a major shipping lane closed tomorrow, which goods would stop moving, and which could simply be flown instead? To answer that, I analyzed $33 trillion of UN Comtrade trade flows by product, country, and transport mode, scored every product on how dependent it is on the sea and how feasible air freight would be, and turned the results into a supply-chain risk dashboard. Along the way, I discovered that a single mislabeled column had reversed the conclusion of the original report, which led me to build automated data-quality checks into every refresh.",
-    facts: [
-      { k: "Tools", v: "Power BI, DAX, SQL" },
-      { k: "Data", v: "UN Comtrade: 1,288 HS4 products, 11 reporting countries, 2021 to 2023" },
-      { k: "Key metrics", v: "Sea dependency, air feasibility (0 to 1), and a combined risk score with High, Medium, and Low tiers" },
-      { k: "Question", v: "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?" }
+    "id": "maersk-trade-risk",
+    "title": "Maersk Trade Value & Mode-Switching Risk",
+    "kind": "Power BI, SQL, Supply Chain",
+    "tags": [
+      "UN Comtrade",
+      "Sea Dependency",
+      "Air Feasibility",
+      "Data Quality"
     ],
-    links: [
-      { label: "Code and README on GitHub", url: "GITHUB_REPO_URL_HERE" }
+    "teaser": "Mapped $33T of trade across 1,288 products to find the goods and countries that would be hit hardest if sea routes were disrupted, and that cannot simply be flown instead.",
+    "lede": "If a major shipping lane closed tomorrow, which goods would stop moving, and which could simply be flown instead? I analyzed $33 trillion of UN Comtrade trade flows across 1,288 products, 11 reporting countries, and three years to find where trade is most exposed to a sea-freight disruption, and built a seven-page Power BI dashboard for a supply-chain risk team. Along the way, I discovered that a single mislabeled column had reversed the conclusion of the original report.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Power BI, DAX, SQL"
+      },
+      {
+        "k": "Data",
+        "v": "UN Comtrade: 1,288 HS4 products, 11 reporting countries, 2021 to 2023"
+      },
+      {
+        "k": "Key metrics",
+        "v": "Sea dependency, air feasibility (0 to 1), and a combined risk score with High, Medium, and Low tiers"
+      },
+      {
+        "k": "Question",
+        "v": "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?"
+      }
     ],
-    lists: [
-      { h: "What I built", items: [
-        "A seven-page Power BI dashboard covering the mode mix, product categories, product-level risk, country exposure, value concentration, and data quality",
-        "Sea dependency for every product (the share of its trade value moving by sea) and an air-feasibility score (0 = cannot realistically fly, 1 = flies easily), combined into a 0 to 1 risk score",
-        "A product classifier whose accuracy on 100 hand-checked products rose from 54% (original keywords) to 88% (improved keywords) to 94% (official HS chapters)",
-        "Nineteen data-quality rules across the API and legacy sources, each with a documented decision, from rejecting rows to flagging them for disclosure"
-      ]},
-      { h: "Key findings", items: [
-        "Sea freight carries 34.2% of the $33.3T in trade value, 2.76 times as much as air; road is the single largest mode, and the overall mix stayed broadly stable from 2021 to 2023",
-        "Energy & Fuels is the most sea-dependent category (58% by sea), followed by Agriculture & Food (43%), whereas Electronics & Machinery relies on the sea least (23%) and on air most (28%)",
-        "Risk is highly concentrated: 272 high-risk products account for 64% of all sea-shipped value, led by soybeans, palm oil, refined petroleum, fertilizers, sugar, and semi-finished steel",
-        "Most of these goods are worth about $1 per kilogram or less, so switching them to air is economically unrealistic",
-        "Exposure varies sharply by country: 83% of Brazil's trade moves by sea, compared with 61% for Viet Nam, 56% for Türkiye and Malaysia, and just 21% for Germany",
-        "In the legacy data, the value column recorded counts rather than dollars; using it as money had reversed the original report's conclusion"
-      ]},
-      { h: "Recommendations", items: [
-        "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
-        "Focus monitoring on the most sea-exposed trading partners: Brazil, Viet Nam, Malaysia, and Türkiye",
-        "Reserve air capacity for the short list of valuable sea-shipped goods, which make up only 0.13% of sea value",
-        "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
-        "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
-      ]}
+    "links": [
+      {
+        "label": "Code and README on GitHub",
+        "url": "GITHUB_REPO_URL_HERE"
+      }
     ],
-    figures: []
-  },
-  {
-    id: "beauty-labor-market",
-    title: "Beauty & the Labor Market: Replicating Hamermesh & Biddle (1994)",
-    kind: "Stata, Econometrics",
-    tags: ["Paper Replication", "OLS + Robust SEs", "Interaction Model", "Margins"],
-    teaser: "Replicated a published study on whether looks affect wages, then extended it to test the effect by sector.",
-    lede: "I replicated Hamermesh and Biddle's 1994 American Economic Review paper on the wage effects of physical appearance, compared my estimates critically against the original, and extended the model to ask whether looks matter more in service-sector jobs.",
-    facts: [
-      { k: "Tools", v: "Stata" },
-      { k: "Methods", v: "OLS with robust standard errors, interaction terms, margins" },
-      { k: "Data", v: "Quality of Employment Survey, as used in the original paper [link the source]" },
-      { k: "Original paper", v: "Hamermesh & Biddle (1994), American Economic Review" }
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "Sea freight carries about a third of trade value, 2.8 times as much as air",
+          "Energy, food, and textiles depend on the sea most; electronics depend on it least",
+          "272 high-risk products hold 64% of sea-shipped value, and almost none of them can realistically fly",
+          "Brazil, Viet Nam, Türkiye, and Malaysia are the most exposed trading partners",
+          "Correcting one faulty data column reversed the original report's conclusion"
+        ]
+      }
     ],
-    links: [
-      { label: "Code and write-up on GitHub", url: "GITHUB_REPO_URL_HERE" }
-    ],
-    lists: [
-      { h: "My extension", items: [
-        "Added a looks × service-sector interaction to test whether appearance carries a bigger wage effect in customer-facing jobs",
-        "Used margins to compare predicted wages for below-average, average, and above-average looks across sectors",
-        "[Your result: does the looks effect differ by sector, and is it significant?]"
-      ]},
-      { h: "Replication", items: [
-        "Regressed log hourly wages on below- and above-average looks with standard controls, separately for men and women",
-        "Below-average looks: [coefficient], about [e^b − 1]% lower wages, vs. [paper's figure] in the original",
-        "Above-average looks: [coefficient and % effect], vs. [paper's figure]",
-        "[Where your results match the paper, where they differ, and why]"
-      ]}
-    ],
-    figures: [
-      { src: "img/beauty-labor-market/margins.png", title: "Predicted wages by looks and sector", caption: "Predicted log wage at each looks rating (1 to 5) for service and non-service workers. The service-sector line rises more steeply, so looks appear to matter more in customer-facing jobs, though the confidence intervals are wide at low ratings." },
-      { src: "img/beauty-labor-market/replication-table.png", title: "Replication vs. original estimates", caption: "My replication of Table 3 (left: men in column 1, women in column 2) next to Hamermesh & Biddle's original (right). The below-average looks penalty is significant in both, and somewhat larger in my estimates." }
+    "sections": [
+      {
+        "h": "How trade moves",
+        "text": [
+          "Across the 11 reporting countries, trade from 2021 to 2023 totals $33.3 trillion. Sea freight carries 34.2% of that value, 2.76 times as much as air, although road is the single largest mode.",
+          "The mix is remarkably stable over time: maritime transport accounts for roughly a third of value in every year, while land modes carry between about 40 and 47%. Total trade value in the latest year was 3.2% lower than in the year before."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/modes.png",
+            "title": "Trade value by transport mode",
+            "caption": "Left: total trade value by mode. Right: each mode group's share by year, which barely changes from 2021 to 2023."
+          }
+        ]
+      },
+      {
+        "h": "Which goods depend on the sea",
+        "text": [
+          "Sea dependency varies widely by category. Energy & Fuels is the most exposed, with 57.9% of its value moving by sea, followed by Agriculture & Food (42.8%) and Textiles & Apparel (40.4%). Electronics & Machinery, the largest category at $9.0 trillion, relies on the sea least (23.4%) and on air most (27.6%).",
+          "Value per kilogram explains much of this pattern. Electronics are worth $22.84 per kilogram, which makes air freight economical; energy products are worth just $0.48, so they have little choice but to travel by sea."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/category-sea-share.png",
+            "title": "Sea dependency by category",
+            "caption": "Share of each category's trade value moving by sea. Energy & Fuels leads at 58%."
+          },
+          {
+            "src": "img/maersk-trade-risk/category-table.png",
+            "title": "Category detail",
+            "caption": "Trade value, sea dependency, air share, and value per kilogram for each category. The dashboard lets users drill down to HS chapter and product level."
+          }
+        ]
+      },
+      {
+        "h": "Where the risk is concentrated",
+        "text": [
+          "To measure risk, I scored every product on two dimensions: how dependent it is on the sea, and how feasible air freight would be as an alternative. Products in the bottom-right corner of the chart, heavily sea-dependent and impossible to fly, carry the highest risk.",
+          "The result is striking. 272 high-risk products, with an average risk score of 0.64 out of 1, account for 63.9% of all sea-shipped value. The list is dominated by bulk commodities, including soybeans, palm oil, refined petroleum, oil-cake, sugar, fertilizers, semi-finished steel, maize, and wheat, most of which are worth about $1 per kilogram or less."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/risk-scatter.png",
+            "title": "Sea dependency vs. air feasibility",
+            "caption": "Each bubble is a product, sized by trade value and colored by risk tier. High-risk products cluster in the bottom right: sea-bound and unable to fly."
+          },
+          {
+            "src": "img/maersk-trade-risk/risk-products.png",
+            "title": "The highest-risk products",
+            "caption": "Sea-bound goods that cannot realistically switch to air, led by soybeans, palm oil, and refined petroleum."
+          }
+        ]
+      },
+      {
+        "h": "Which countries are most exposed",
+        "text": [
+          "Exposure differs sharply by country. Brazil moves 82.7% of its trade by sea, led by agricultural exports, followed by Viet Nam (61.4%), Türkiye (56.2%), Malaysia (56.1%), and Thailand (52.3%). At the other end of the scale, Germany, the largest trader in the sample at $9.6 trillion, moves just 21.1% of its trade by sea."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/country-sea-share.png",
+            "title": "Sea dependency by country",
+            "caption": "Share of each reporting country's trade that moves by sea."
+          },
+          {
+            "src": "img/maersk-trade-risk/country-table.png",
+            "title": "Country exposure detail",
+            "caption": "Sea dependency, total trade value, and the most sea-dependent category for each country."
+          }
+        ]
+      },
+      {
+        "h": "How concentrated trade is",
+        "text": [
+          "A small number of products dominate trade value. Passenger cars are the single largest product at about $1.6 trillion, followed by crude oil, unspecified commodities, and refined petroleum. The ten largest products alone account for roughly 27% of total trade value."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/pareto.png",
+            "title": "Top products and cumulative share",
+            "caption": "Bars show the ten largest products by value; the line shows their cumulative share of total trade."
+          }
+        ]
+      },
+      {
+        "h": "Getting the data right",
+        "text": [
+          "The most important finding came from auditing the data. In the legacy extract, the column labeled as trade value actually recorded small counts rather than dollars: every one of its 9,948 rows was 100 or less. Using it as money had reversed the conclusion of the original report, so the legacy data is now valued using FOB values instead.",
+          "I then built 19 automated data-quality rules across the API and legacy sources, each with a documented decision, from rejecting a row to flagging it for disclosure. For example, 40% of API rows carry weights estimated by the UN, which are kept but disclosed. I also rebuilt the product classifier: on 100 randomly chosen, hand-checked products, accuracy rose from 54% with the original keywords to 88% with improved keywords and 94% with official HS chapters."
+        ],
+        "figures": [
+          {
+            "src": "img/maersk-trade-risk/data-quality.png",
+            "title": "Data-quality rules",
+            "caption": "Every rule, how many rows failed it, and the decision taken. The checks run on every refresh."
+          }
+        ]
+      },
+      {
+        "h": "Recommendations",
+        "bullets": [
+          "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
+          "Focus monitoring on the most sea-exposed trading partners: Brazil, Viet Nam, Malaysia, and Türkiye",
+          "Reserve air capacity for the short list of valuable sea-shipped goods, which make up only 0.13% of sea value",
+          "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
+          "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
+        ]
+      }
     ]
   },
   {
-    id: "gender-wage-gap",
-    title: "The Gender Wage Gap, 2012–2025: What Closed and What Didn't",
-    kind: "Stata, Python, Labor Economics",
-    tags: ["IPUMS CPS", "644K Workers", "Oaxaca-Blinder", "Quantile Regression", "Fixed Effects"],
-    teaser: "Fourteen years of Census survey data and 644,000 workers show that, once you compare like with like, the U.S. gender wage gap has not closed at all.",
-    lede: "Headlines often suggest that the gender wage gap is slowly disappearing. I tested that claim with fourteen years of Current Population Survey data covering 644,115 full-time workers. The answer is sobering: once women and men with the same education, experience, and region are compared, women still earn about 21% less, exactly as they did in 2012. The modest narrowing in the raw gap is almost entirely explained by women's growing educational advantage, while the gap at the top of the pay ladder has actually widened. The project runs in two parts: a detailed 2012 cross-section that asks where the gap is largest and why, and a 2012 to 2025 panel of cross-sections that asks whether anything has changed.",
-    facts: [
-      { k: "Tools", v: "Python (pandas, statsmodels, pyfixest, matplotlib), with the original analysis replicated in Stata" },
-      { k: "Data", v: "CPS March 2013 supplement (59,485 workers) and IPUMS CPS ASEC 2013 to 2026, covering earnings from 2012 to 2025 (644,115 workers drawn from 2.37M records)" },
-      { k: "Sample", v: "Full-time, full-year wage and salary workers aged 21 to 64" },
-      { k: "Methods", v: "Survey-weighted OLS, interaction models, occupation and industry fixed effects, quantile regression, Oaxaca-Blinder decomposition" }
+    "id": "beauty-labor-market",
+    "title": "Beauty & the Labor Market: Replicating Hamermesh & Biddle (1994)",
+    "kind": "Stata, Econometrics",
+    "tags": [
+      "Paper Replication",
+      "OLS + Robust SEs",
+      "Interaction Model",
+      "Margins"
     ],
-    links: [
-      { label: "Code and README on GitHub", url: "GITHUB_REPO_URL_HERE" },
-      { label: "Data source: IPUMS CPS", url: "https://cps.ipums.org/cps/" }
+    "teaser": "Replicated a published study on whether looks affect wages, then extended it to test whether the effect is stronger in service jobs.",
+    "lede": "Do attractive people earn more, and if so, is it because looks make them more productive or because employers discriminate? I replicated Hamermesh and Biddle's influential 1994 American Economic Review study using the 1977 Quality of Employment Survey, compared my estimates critically with the original, and extended the model to test whether appearance matters more in customer-facing service jobs.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Stata"
+      },
+      {
+        "k": "Methods",
+        "v": "OLS with robust standard errors, interaction terms, margins"
+      },
+      {
+        "k": "Data",
+        "v": "1977 Quality of Employment Survey: 824 men and 436 women (154 and 191 in services)"
+      },
+      {
+        "k": "Original paper",
+        "v": "Hamermesh & Biddle (1994), American Economic Review"
+      }
     ],
-    lists: [
-      { h: "Key findings", items: [
-        "The gap has not closed: holding education, experience, and region constant, women earn about 21% less than men in both 2012 and 2025, and the change is statistically indistinguishable from zero (p = 0.71)",
-        "The raw gap narrowed only slightly, from 17.2% to 15.8%, and only because women's educational advantage over men kept growing",
-        "Within the same occupation and industry, the gap did shrink, from 15.5% to 12.7%, so what remains is increasingly about which jobs women and men hold rather than unequal pay for the same job",
-        "The glass ceiling has thickened: the gap narrowed at the 10th percentile (18.3% to 16.5%) but widened at the 90th (24.7% to 26.3%)",
-        "Family status pulls in opposite directions: marriage lifts men's wages by 23% but women's by only 10%, and children add 5% for fathers while costing mothers 2%. As a result, the gap is 12% for single women without children but 27% for married mothers"
-      ]},
-      { h: "Where the gap is largest (2012)", items: [
-        "Differences in characteristics explain none of the gap: women are slightly better educated, so the unexplained component is 122% of the raw gap",
-        "The gap widens steadily up the wage distribution, from 18% at the 10th percentile to about 23% at the 80th, a classic glass-ceiling pattern",
-        "It opens up over the life cycle, rising from 15% among workers in their twenties to 24% in their forties, the years in which most people raise children",
-        "Measured by potential experience, it grows from under 5% at career entry to roughly 24% after 25 to 30 years",
-        "It does not differ meaningfully by region: estimates range from 18% to 21%, and the regional differences are jointly insignificant (p = 0.14)"
-      ]},
-      { h: "Methods and robustness", items: [
-        "Ran 42 survey-weighted regressions, three nested specifications for each of 14 years, adding occupation and industry fixed effects in the strictest model",
-        "Formally tested whether the controlled gap changed between 2012 and 2025 rather than relying on visual trends",
-        "Validated the pipeline twice: the 2013 IPUMS sample reproduces the course dataset's estimate (−0.239 vs. −0.236), and the Python results match the original Stata output",
-        "Handled the 2014 redesign of the income questionnaire by keeping only respondents who received the new questions, so every year is measured consistently"
-      ]},
-      { h: "Limitations", items: [
-        "These are differences between otherwise similar workers, not proof of discrimination: hours flexibility, field of study, and job tenure are not observed",
-        "The full-time, full-year sample excludes part-time workers, who are disproportionately women, and mothers who stay in full-time work are a selected group, so the motherhood penalty is probably understated",
-        "Wage income is top-coded for very high earners, which affects the 90th-percentile estimates most"
-      ]}
+    "links": [
+      {
+        "label": "Code and write-up on GitHub",
+        "url": "GITHUB_REPO_URL_HERE"
+      }
     ],
-    figures: [
-      { src: "img/gender-wage-gap/trend.png", title: "Has the gap closed? Three ways of measuring it", caption: "The raw gap (blue) narrows a little and the within-job gap (green) narrows more, but the gap between comparable women and men (orange) is essentially flat at about 21% from 2012 to 2025." },
-      { src: "img/gender-wage-gap/table-trend.png", title: "Table 2. The gap in 2012 and 2025", caption: "Average and distributional gaps at the start and end of the period. Only the within-job gap and the bottom of the distribution improved; the top got worse." },
-      { src: "img/gender-wage-gap/quantiles.png", title: "A thicker glass ceiling", caption: "The gap at each decile of the wage distribution in 2012 and 2025. Low earners saw modest progress, while the gap among the highest earners widened to more than 26%." },
-      { src: "img/gender-wage-gap/family.png", title: "The family gap, 2022 to 2025", caption: "The gap relative to men with the same family status. It more than doubles from single women without children (12%) to married mothers (27%)." },
-      { src: "img/gender-wage-gap/table-family.png", title: "Table 4. Marriage, children, and the gap", caption: "Regression estimates for an early and a recent period, with the implied gap for each family type. The point estimates for both the marriage and the motherhood penalties are slightly larger in the recent period." },
-      { src: "img/gender-wage-gap/wage-distribution.png", title: "Hourly earnings by gender, 2012", caption: "Women's wage distribution sits visibly to the left of men's, with fewer women at the top end." },
-      { src: "img/gender-wage-gap/table-baseline.png", title: "Table 1. Building up the 2012 model", caption: "Adding controls step by step. Because women are better educated, controlling for education makes the gap larger rather than smaller." },
-      { src: "img/gender-wage-gap/quantiles-2012.png", title: "The 2012 gap across the wage distribution", caption: "Quantile regression estimates with 95% confidence intervals. The gap rises from about 18% at the bottom to about 23% at the top, compared with the 21% average (dashed line)." },
-      { src: "img/gender-wage-gap/gap-by-age.png", title: "The gap over the life cycle", caption: "The gap peaks among workers in their forties at about 24%, consistent with the timing of childbearing, although the 2012 data cannot test that link directly." },
-      { src: "img/gender-wage-gap/gap-by-experience.png", title: "The gap by years of experience", caption: "Women and men start their careers on nearly equal footing, but the gap widens rapidly over the first 20 years and only levels off later." },
-      { src: "img/gender-wage-gap/table-decomposition.png", title: "Table 3. Explained vs. unexplained gap", caption: "Oaxaca-Blinder decomposition. Women's education advantage means their characteristics predict slightly higher pay, so the entire gap, and more, is unexplained." }
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "The core result replicates: workers rated below average in looks earn significantly less, for both men and women",
+          "The penalty is larger for men than for women, as in the original",
+          "The premium for above-average looks is small and imprecisely estimated in both studies",
+          "Looks appear to matter more in service jobs, but the subsample is too small for a firm conclusion"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "The question",
+        "text": [
+          "Economists had long studied discrimination by race, gender, and disability, but appearance had been largely neglected. Beauty is a particularly interesting case because, unlike race or gender, it could plausibly affect productivity in jobs such as sales or customer service, which makes it possible to separate a productivity explanation from pure employer discrimination.",
+          "The question also matters for policy. Michigan has banned weight-based discrimination since the 1970s and New York City extended protections in 2023, but no broader law covers physical appearance. Hamermesh and Biddle found that plain-looking workers earn 7 to 9% less, independent of height and weight, which suggests that existing laws may be missing an important dimension of labor-market inequality."
+        ]
+      },
+      {
+        "h": "Data, and how my replication differs",
+        "text": [
+          "The original study combined three surveys; I had access to one, the 1977 Quality of Employment Survey. After applying the authors' sample restrictions, my sample contains 824 men and 436 women, compared with 959 and 539 in the original. Interviewers rated each respondent's appearance on a five-point scale, which I collapsed into below average, average, and above average, exactly as the authors did.",
+          "My specification also differs in several ways: education is measured in continuous years rather than degree categories, industry is captured by a single service-sector indicator, and tenure, plant size, and vocational training are unavailable. These differences explain why my models with controls have a lower R² (0.308 for men and 0.300 for women, against 0.403 and 0.330 in the original)."
+        ],
+        "figures": [
+          {
+            "src": "img/beauty-labor-market/stata-code.png",
+            "title": "Part of my Stata do-file",
+            "caption": "The service-sector regressions, the visualizations, and the interaction model used for the extension."
+          }
+        ]
+      },
+      {
+        "h": "Is my sample representative?",
+        "text": [
+          "Despite being smaller, my sample mirrors the original closely. About 59% of men and 53% of women are rated average in both datasets, and the share rated above average differs by only about one percentage point. Two patterns from the original reappear: far more workers are rated above average than below average, and women's ratings are more spread out than men's, consistent with research showing that women's appearance tends to provoke stronger reactions in both directions."
+        ],
+        "figures": [
+          {
+            "src": "img/beauty-labor-market/looks-distribution.png",
+            "title": "Distribution of looks ratings",
+            "caption": "My distribution (left) next to the original QES distribution (right). The shares in each category differ by only one to two percentage points."
+          }
+        ]
+      },
+      {
+        "h": "Replication results",
+        "text": [
+          "The main finding replicates. Workers rated below average earn significantly less than average-looking workers: my estimates are −0.199 log points for men and −0.138 for women, against −0.164 and −0.124 in the original. As in the original, the penalty is larger for men, and the premium for above-average looks is small and statistically insignificant for both sexes, confirming that plainness is penalized more reliably than beauty is rewarded.",
+          "The estimates in this table come from models without controls, as their low R² values show, so they are directionally comparable with the original but somewhat larger in magnitude."
+        ],
+        "figures": [
+          {
+            "src": "img/beauty-labor-market/replication-table.png",
+            "title": "My Table 3 vs. the original",
+            "caption": "My estimates (left: men in column 1, women in column 2) next to Hamermesh and Biddle's Table 3 (right)."
+          }
+        ]
+      },
+      {
+        "h": "Does the gap persist within occupations?",
+        "text": [
+          "Hamermesh and Biddle argued that if attractive workers simply sorted into jobs where looks raise productivity, the beauty gap should shrink once occupation is taken into account. It did not, which points toward employer discrimination. Restricting my sample to service-sector workers approximates their test.",
+          "For men, the results closely match the original: −0.185 log points for below-average looks and +0.016 for above-average looks. For women, the penalty is −0.091 and the premium rises to +0.112, consistent with the idea that looks matter more for women in customer-facing roles. However, the service subsample contains only 154 men and 191 women, so these estimates lack statistical power."
+        ],
+        "figures": [
+          {
+            "src": "img/beauty-labor-market/service-sector-table.png",
+            "title": "Service-sector results vs. the original",
+            "caption": "My service-sector regressions (left) next to the original Table 9, which controls for occupation (right)."
+          },
+          {
+            "src": "img/beauty-labor-market/wage-by-looks.png",
+            "title": "Mean log wage by looks",
+            "caption": "Above-average-looking workers earn more than below-average-looking workers, both in the service sector (left) and across all sectors (right), for men and women alike."
+          }
+        ]
+      },
+      {
+        "h": "Extension: do looks matter more in service jobs?",
+        "text": [
+          "To test the mechanism directly, I interacted the looks rating with a service-sector indicator and used margins to compare predicted wages at each rating. The service-sector line rises more steeply: in customer-facing jobs, each step up in looks is associated with a larger wage gain. The interaction is not statistically significant (p = 0.223), however, and the confidence intervals are wide, particularly at low ratings, which again reflects the small subsample."
+        ],
+        "figures": [
+          {
+            "src": "img/beauty-labor-market/margins.png",
+            "title": "Predicted wages by looks and sector",
+            "caption": "Predicted log wage at each looks rating for service and non-service workers. The service-sector gradient is steeper, but the confidence intervals overlap."
+          }
+        ]
+      },
+      {
+        "h": "Limitations and next steps",
+        "bullets": [
+          "Stronger identification: panel data with individual fixed effects would show whether changes in perceived attractiveness move wages, net of fixed personal traits",
+          "Better measurement: several standardized raters would reduce the noise in a single interviewer's judgment",
+          "Modern data: labor markets and social norms have changed since the 1970s, but explicitly rating workers' looks today raises serious ethical concerns, so future work would need less intrusive measures that study inequality without reinforcing it"
+        ]
+      }
     ]
   },
   {
-    id: "happiness-dashboard",
-    title: "World Happiness Report Dashboard",
-    kind: "Power BI, DAX",
-    tags: ["6-Page Dashboard", "GDP vs Happiness", "Social Support", "Corruption"],
-    teaser: "Does money buy happiness? A Power BI dashboard showing that wealth helps, but social support and trust in institutions can matter just as much.",
-    lede: "Does money buy happiness? Using World Happiness Report data, I built an interactive Power BI dashboard to put that question to the test. My position is that national income does rise alongside happiness, but economic growth alone does not guarantee greater well-being. Wealthier nations tend to be happier, yet other factors, above all social support and perceptions of corruption, carry real weight of their own, and in some cases they can override the GDP advantage altogether, allowing far poorer countries to outscore some of the world's richest on happiness.",
-    facts: [
-      { k: "Tools", v: "Power BI, DAX" },
-      { k: "Data", v: "World Happiness Report: ladder scores, logged GDP per capita, social support, healthy life expectancy, and perceived corruption by country" },
-      { k: "Pages", v: "6" },
-      { k: "Question", v: "Does money buy happiness, or do social factors matter as much as GDP?" },
-      { k: "Course", v: "DATA 200" }
+    "id": "gender-wage-gap",
+    "title": "The Gender Wage Gap, 2012–2025: What Closed and What Didn't",
+    "kind": "Python, Stata, Labor Economics",
+    "tags": [
+      "IPUMS CPS",
+      "644K Workers",
+      "Oaxaca-Blinder",
+      "Quantile Regression",
+      "Fixed Effects"
     ],
-    lists: [
-      { h: "My position", items: [
-        "National income does rise alongside happiness, but economic growth alone does not guarantee greater well-being",
-        "Social support and perceptions of corruption are important determinants in their own right, and in some cases they override the GDP advantage, so that far poorer nations outscore some of the world's richest"
-      ]},
-      { h: "What the dashboard shows", items: [
-        "Over the long run, GDP and happiness move in the same direction: from 2007 to 2019, the global average ladder score rose from about 5.42 to 5.59 as average logged GDP climbed from about 9.17 to 9.48",
-        "In the short run, however, they can diverge sharply: between 2012 and 2016, average GDP held close to its peak while average happiness fell to its lowest point of the period, around 5.39 in 2013",
-        "Across countries, both wealth and social support show clear positive relationships with happiness, so a strong social fabric matters alongside a strong economy",
-        "Perceived corruption pulls in the opposite direction: countries where corruption is seen as widespread report noticeably lower happiness",
-        "The spread between nations is striking: in 2021, Finland scored 7.8 on the ladder while Afghanistan scored just 2.5, a gap of more than five points"
-      ]},
-      { h: "How I built it", items: [
-        "An overview page with a world map grouping every country from \"very happy\" to \"very unhappy\", linked to region and country filters and summary cards for each driver",
-        "A dual-axis time series tracking average GDP and happiness side by side, with a country selector for drilling into any nation",
-        "Scatter plots with trend lines for GDP, social support, and corruption, to compare the strength and direction of each relationship",
-        "A ranking of the happiest, middle-ranked, and least happy nations, color-coded by tier"
-      ]}
+    "teaser": "Fourteen years of Census survey data and 644,000 workers show that, once you compare like with like, the U.S. gender wage gap has not closed at all.",
+    "lede": "Headlines often suggest that the gender wage gap is slowly disappearing. I tested that claim with fourteen years of Current Population Survey data covering 644,115 full-time workers. The answer is sobering: once women and men with the same education, experience, and region are compared, women still earn about 21% less, exactly as they did in 2012. The project runs in two parts: a detailed 2012 cross-section that asks where the gap is largest and why, and a 2012 to 2025 series that asks whether anything has changed.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Python (pandas, statsmodels, pyfixest, matplotlib), replicated in Stata"
+      },
+      {
+        "k": "Data",
+        "v": "CPS March 2013 supplement (59,485 workers) and IPUMS CPS ASEC, earnings years 2012 to 2025 (644,115 workers)"
+      },
+      {
+        "k": "Sample",
+        "v": "Full-time, full-year wage and salary workers aged 21 to 64"
+      },
+      {
+        "k": "Methods",
+        "v": "Survey-weighted OLS, interaction models, occupation and industry fixed effects, quantile regression, Oaxaca-Blinder decomposition"
+      }
     ],
-    figures: [
-      { src: "img/happiness-dashboard/overview.png", title: "Overview page", caption: "World map of countries grouped from very happy to very unhappy, with region and country filters and summary cards for GDP, happiness, life expectancy, social support, and corruption." },
-      { src: "img/happiness-dashboard/gdp-happiness-trend.png", title: "GDP and happiness over time", caption: "Average happiness (green) and average logged GDP (purple), 2007 to 2019. Both end higher than they began, but from 2012 to 2016 GDP held steady near its peak while happiness slumped, a clear sign that growth alone does not guarantee well-being." },
-      { src: "img/happiness-dashboard/gdp-support.png", title: "Wealth, social support, and happiness", caption: "Richer countries and countries with stronger social support both tend to report higher happiness, which is why GDP alone cannot tell the whole story." },
-      { src: "img/happiness-dashboard/corruption.png", title: "Corruption and happiness", caption: "The relationship turns negative for corruption: the more widespread corruption is perceived to be, the lower a country's happiness tends to be." },
-      { src: "img/happiness-dashboard/happiest-nations.png", title: "The happiest and least happy nations, 2021", caption: "Finland, Denmark, and Iceland lead with scores above 7.5, while Rwanda, Zimbabwe, and Afghanistan trail far behind, with Afghanistan at just 2.5." }
+    "links": [
+      {
+        "label": "Code and README on GitHub",
+        "url": "GITHUB_REPO_URL_HERE"
+      },
+      {
+        "label": "Data source: IPUMS CPS",
+        "url": "https://cps.ipums.org/cps/"
+      }
+    ],
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "Comparing like with like, women earn about 21% less than men, and that has not changed since 2012",
+          "The raw gap narrowed only because women's educational advantage grew",
+          "The gap within the same jobs is shrinking, but the gap at the top of the pay ladder is widening",
+          "Marriage and children widen the gap: 12% for single women without children, 27% for married mothers"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "Has the gap closed?",
+        "text": [
+          "I estimated the gap separately for each earnings year from 2012 to 2025 using three nested specifications: a raw comparison; one that adds education, experience, and region; and one that also adds occupation and industry fixed effects. That is 42 survey-weighted regressions in total.",
+          "The raw gap narrowed only slightly, from 17.2% to 15.8%. But once women and men with the same education, experience, and region are compared, the gap is about 21% in both 2012 and 2025, and a formal test confirms that the change is statistically indistinguishable from zero (p = 0.71). The only clear improvement is within the same occupation and industry, where the gap fell from 15.5% to 12.7%, so what remains is increasingly about which jobs women and men hold."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/trend.png",
+            "title": "The gap by year, three ways",
+            "caption": "The raw gap (blue) narrows a little and the within-job gap (green) narrows more, but the gap between comparable women and men (orange) stays flat at about 21%."
+          },
+          {
+            "src": "img/gender-wage-gap/table-trend.png",
+            "title": "Table 2. The gap in 2012 and 2025",
+            "caption": "Only the within-job gap and the bottom of the distribution improved; the top got worse."
+          }
+        ]
+      },
+      {
+        "h": "A thicker glass ceiling",
+        "text": [
+          "Quantile regression shows how the gap varies along the wage distribution. In 2025 it ranges from 16.5% at the 10th percentile to 26.3% at the 90th. Over time the bottom improved, from 18.3%, while the top deteriorated, from 24.7%: progress for low earners has been accompanied by a widening gap among the highest earners."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/quantiles.png",
+            "title": "The gap across the wage distribution, 2012 vs. 2025",
+            "caption": "Low earners saw modest progress, while the gap among the highest earners widened to more than 26%."
+          }
+        ]
+      },
+      {
+        "h": "Marriage, children, and the gap",
+        "text": [
+          "To study family effects, I interacted gender with marriage and parenthood, comparing 2012 to 2015 with 2022 to 2025. In the recent period, marriage raises men's wages by 23% but women's by only 10%, and children add 5% for fathers while costing mothers 2%.",
+          "These effects compound. The gap is 12% for single women without children, 18% for single mothers, 21% for married women without children, and 27% for married mothers. Because mothers who stay in full-time work are a selected group, the true motherhood penalty is probably larger."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/family.png",
+            "title": "The family gap, 2022 to 2025",
+            "caption": "The gap relative to men with the same family status more than doubles from single women without children to married mothers."
+          },
+          {
+            "src": "img/gender-wage-gap/table-family.png",
+            "title": "Table 4. Marriage, children, and the gap",
+            "caption": "Regression estimates for an early and a recent period, with the implied gap for each family type."
+          }
+        ]
+      },
+      {
+        "h": "Where the gap is largest (2012)",
+        "text": [
+          "The first part of the project examines a single year in depth. Building up the model step by step reveals something counterintuitive: controlling for education makes the gap larger, not smaller, because women in the sample are better educated than men (14.3 versus 13.9 years of schooling). Holding education, experience, and region constant, women earn 21.1% less.",
+          "The gap barely differs by region: estimates range from 18% to 21%, and the regional differences are jointly insignificant (p = 0.14)."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/wage-distribution.png",
+            "title": "Hourly earnings by gender, 2012",
+            "caption": "Women's wage distribution sits visibly to the left of men's, with fewer women at the top end."
+          },
+          {
+            "src": "img/gender-wage-gap/table-baseline.png",
+            "title": "Table 1. Building up the 2012 model",
+            "caption": "Adding controls step by step. Controlling for education widens the gap because women are better educated."
+          }
+        ]
+      },
+      {
+        "h": "Across the pay scale and over the career",
+        "text": [
+          "In 2012 the gap widens steadily up the wage distribution, from 18% at the 10th percentile to about 23% at the 80th, a classic glass-ceiling pattern. It also opens up over the life cycle: it is 15% for workers in their twenties, peaks at 24% in their forties, the years in which most people raise children, and stands at 22% for workers over fifty. Measured by potential experience, it grows from under 5% at career entry to roughly 24% after 25 to 30 years."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/quantiles-2012.png",
+            "title": "The 2012 gap across the wage distribution",
+            "caption": "Quantile regression estimates with 95% confidence intervals, compared with the 21% average (dashed line)."
+          },
+          {
+            "src": "img/gender-wage-gap/gap-by-age.png",
+            "title": "The gap by age group",
+            "caption": "The gap peaks among workers in their forties, consistent with the timing of childbearing."
+          },
+          {
+            "src": "img/gender-wage-gap/gap-by-experience.png",
+            "title": "The gap by years of experience",
+            "caption": "Women and men start their careers almost level, but the gap widens rapidly over the first 20 years."
+          }
+        ]
+      },
+      {
+        "h": "How much of the gap can be explained?",
+        "text": [
+          "An Oaxaca-Blinder decomposition splits the raw gap into a part explained by differences in characteristics and an unexplained remainder. Because women have more education on average, their characteristics actually predict slightly higher pay than men's. The explained part is therefore negative, and the unexplained part amounts to 122% of the raw gap: differences in measured characteristics explain none of it."
+        ],
+        "figures": [
+          {
+            "src": "img/gender-wage-gap/table-decomposition.png",
+            "title": "Table 3. Explained vs. unexplained gap",
+            "caption": "Women's education advantage means their characteristics predict higher pay, so the entire gap, and more, is unexplained."
+          }
+        ]
+      },
+      {
+        "h": "Robustness checks",
+        "bullets": [
+          "The 2013 IPUMS sample reproduces the course dataset's estimate closely (−0.239 vs. −0.236), and the Python results match the original Stata output",
+          "The 2014 survey tested a redesigned income questionnaire on part of the sample; I kept only respondents who received the new questions, so every year is measured consistently",
+          "Average gaps use ASEC survey weights with robust standard errors; the Python quantile regressions are unweighted, while the Stata version is weighted"
+        ]
+      },
+      {
+        "h": "Limitations",
+        "bullets": [
+          "These are differences between otherwise similar workers, not proof of discrimination: hours flexibility, field of study, and job tenure are not observed",
+          "The full-time, full-year sample excludes part-time workers, who are disproportionately women, so the motherhood penalty is probably understated",
+          "Wage income is top-coded for very high earners, which affects the 90th-percentile estimates most"
+        ]
+      }
     ]
   },
   {
-    id: "imdb-sql",
-    title: "IMDb Movie Database in SQL",
-    kind: "SQL, SQLAlchemy",
-    tags: ["SQLite", "Schema Design", "Joins"],
-    teaser: "Designed a SQLite database from IMDb data and queried it with SQLAlchemy.",
-    lede: "I structured IMDb data into a relational SQLite database and used SQLAlchemy to answer questions about [genres, ratings, directors].",
-    facts: [
-      { k: "Tools", v: "SQLite, SQLAlchemy, Python" },
-      { k: "Course", v: "DATA 200" },
-      { k: "Question", v: "[What you set out to answer]" }
+    "id": "happiness-dashboard",
+    "title": "World Happiness Report Dashboard",
+    "kind": "Power BI, DAX",
+    "tags": [
+      "Power BI Dashboard",
+      "GDP vs Happiness",
+      "Social Support",
+      "Corruption"
     ],
-    lists: [
-      { h: "Highlights", items: ["[Schema design choice]", "[Most interesting query result]"] }
+    "teaser": "Does money buy happiness? A Power BI dashboard showing that wealth helps, but social support and trust in institutions can matter just as much.",
+    "lede": "Does money buy happiness? Using World Happiness Report data, I built an interactive Power BI dashboard to put that question to the test. My position is that national income does rise alongside happiness, but economic growth alone does not guarantee greater well-being. Wealthier nations tend to be happier, yet other factors, above all social support and perceptions of corruption, carry real weight of their own, and in some cases they can override the GDP advantage altogether, allowing far poorer countries to outscore some of the world's richest on happiness.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Power BI, DAX"
+      },
+      {
+        "k": "Data",
+        "v": "World Happiness Report: ladder scores, logged GDP per capita, social support, healthy life expectancy, and perceived corruption"
+      },
+      {
+        "k": "Question",
+        "v": "Does money buy happiness, or do social factors matter as much as GDP?"
+      },
+      {
+        "k": "Course",
+        "v": "DATA 200"
+      }
     ],
-    figures: [
-      { src: "img/imdb-sql/top-actors.png", title: "Most prolific well-rated actors", caption: "Top 7 actors by number of movies, among those with an average rating of 6+, at least 20 movies, and at least 15,000 votes." },
-      { src: "img/imdb-sql/drama-ratings.png", title: "Does making more movies mean better ratings?", caption: "Drama actors with 10 to 60 movies: the trend line is nearly flat, so a longer filmography doesn't come with higher average ratings." }
+    "lists": [
+      {
+        "h": "What the dashboard shows",
+        "items": [
+          "Wealthier countries tend to be happier, and GDP and happiness rise together over the long run",
+          "Growth alone is not enough: happiness can fall even while GDP stays high",
+          "Social support and trust in institutions matter as much as income"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "A global map of happiness",
+        "text": [
+          "The overview page places every country on a world map, grouped from very happy to very unhappy, with filters for region and country and summary cards for each driver of happiness. Across all countries and years, the average ladder score is 5.53 on a scale from 0 to 10, average logged GDP per capita is 9.43, healthy life expectancy is 63.4 years, social support is 0.81, and perceived corruption is 0.75."
+        ],
+        "figures": [
+          {
+            "src": "img/happiness-dashboard/overview.png",
+            "title": "Overview page",
+            "caption": "World map of countries grouped from very happy to very unhappy, with filters and summary cards for each driver."
+          }
+        ]
+      },
+      {
+        "h": "Does growth bring happiness?",
+        "text": [
+          "Over the long run, GDP and happiness move together: from 2007 to 2019, the global average ladder score rose from about 5.42 to 5.59, while average logged GDP climbed from about 9.17 to 9.48.",
+          "In the short run, however, the two can diverge sharply. Between 2012 and 2016, average GDP held close to its peak, yet average happiness fell to its lowest point of the period, around 5.39 in 2013, and only recovered after 2016. Economic growth, in other words, does not guarantee greater well-being."
+        ],
+        "figures": [
+          {
+            "src": "img/happiness-dashboard/gdp-happiness-trend.png",
+            "title": "GDP and happiness over time",
+            "caption": "Average happiness (green) and average logged GDP (purple), 2007 to 2019. From 2012 to 2016, GDP held steady while happiness slumped."
+          }
+        ]
+      },
+      {
+        "h": "What else drives happiness?",
+        "text": [
+          "Across countries, both wealth and social support show clear positive relationships with happiness: people are happier where incomes are higher and where they have someone to count on in difficult times. Perceived corruption pulls in the opposite direction, as countries where corruption is seen as widespread report noticeably lower happiness.",
+          "Because these factors matter independently of income, they can offset, or even override, a country's GDP advantage."
+        ],
+        "figures": [
+          {
+            "src": "img/happiness-dashboard/gdp-support.png",
+            "title": "Wealth, social support, and happiness",
+            "caption": "Richer countries and countries with stronger social support both tend to report higher happiness."
+          },
+          {
+            "src": "img/happiness-dashboard/corruption.png",
+            "title": "Corruption and happiness",
+            "caption": "The more widespread corruption is perceived to be, the lower a country's happiness tends to be."
+          }
+        ]
+      },
+      {
+        "h": "The happiest and least happy nations",
+        "text": [
+          "The gap between countries is striking. In 2021, Finland (7.8), Denmark (7.6), and Iceland (7.6) topped the rankings; Montenegro, the Dominican Republic, and North Cyprus sat in the middle at around 5.5; and Rwanda (3.4), Zimbabwe (3.1), and Afghanistan (2.5) ranked lowest, a spread of more than five points."
+        ],
+        "figures": [
+          {
+            "src": "img/happiness-dashboard/happiest-nations.png",
+            "title": "The happiest and least happy nations, 2021",
+            "caption": "Finland, Denmark, and Iceland lead with scores above 7.5, while Afghanistan trails at just 2.5."
+          }
+        ]
+      },
+      {
+        "h": "Conclusion",
+        "text": [
+          "Money does buy some happiness: national income rises alongside well-being across the globe. But wealth is not the whole story. Social support and perceptions of corruption are important determinants in their own right, and in some cases they can override the GDP advantage, making some of the world's richest nations outscored on happiness by far poorer ones."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "imdb-sql",
+    "title": "IMDb Actor & Actress Career Analysis in SQL",
+    "kind": "SQL, Python",
+    "tags": [
+      "SQLite",
+      "SQLAlchemy",
+      "Parameterized Queries",
+      "Seaborn"
+    ],
+    "teaser": "Two reusable SQL-powered functions that reveal how vote thresholds, gender, and genre shape who rises to the top of IMDb's ratings.",
+    "lede": "Who are the best-rated actors and actresses on IMDb, and does appearing in more films lead to better ratings? Working with an SQLite database built from IMDb data through March 2022, I wrote two reusable, SQL-powered Python functions that rank performers under adjustable filters and test the link between career size and audience ratings across genres. The analysis shows how easily a ranking can be distorted by a single parameter choice, and how much genre shapes the value of experience.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "SQL (SQLite), SQLAlchemy, pandas, matplotlib, seaborn"
+      },
+      {
+        "k": "Data",
+        "v": "IMDb subset in SQLite (titles, crew, people, ratings), through 27 March 2022"
+      },
+      {
+        "k": "Question",
+        "v": "What makes a performer rank highly, and does a bigger career mean better ratings?"
+      },
+      {
+        "k": "Course",
+        "v": "DATA 200"
+      }
+    ],
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "Without a minimum vote count, rankings are dominated by performers from regional film industries with small but enthusiastic audiences",
+          "A 15,000-vote floor produces a far more meaningful list of internationally recognized performers",
+          "Under identical filters, top actors average higher ratings than top actresses (7.20 vs. 6.95)",
+          "In mainstream genres, making more films does not raise a performer's ratings; in smaller genres, it may"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "Two reusable query functions",
+        "text": [
+          "Rather than writing one-off queries, I built two parameterized functions. Each joins four tables (titles, crew, people, and ratings), restricts the data to feature films, excludes adult titles, and aggregates every performer's film count and average rating in SQL before passing the result to pandas for display."
+        ],
+        "bullets": [
+          "top_contributors(gender, min_movies, min_rating, top_n, min_votes) ranks actors or actresses by average rating, subject to minimum thresholds for film count and votes per film, and charts how many films each qualifying performer has made",
+          "top_by_genre(genre, gender, min_movies, max_movies) lists the top performers within a genre and fits a trend line between film count and average rating"
+        ],
+        "code": "SELECT name,\n       COUNT(DISTINCT titles.title_id) AS num_movies,\n       AVG(rating)                     AS average_rating\nFROM titles\nLEFT JOIN crew    USING (title_id)\nLEFT JOIN people  USING (person_id)\nLEFT JOIN ratings USING (title_id)\nWHERE category = :gender\n  AND type = 'movie'\n  AND is_adult = 0\n  AND votes >= :min_votes\nGROUP BY people.person_id, name\nHAVING num_movies >= :min_movies\n   AND average_rating >= :min_rating\nORDER BY average_rating DESC\nLIMIT :top_n;"
+      },
+      {
+        "h": "Why the vote threshold matters",
+        "text": [
+          "The first test ranked actresses with at least 20 films and an average rating of 6 or above, with no restriction on votes. All seven top performers came from regional film industries, led by Leelavathi with an average of 8.25 across 62 films. India's film industries release far more films each year than Hollywood, and regional films are often rated by smaller, loyal audiences who award very high scores, so these performers rank highly for reasons that have little to do with wider acclaim.",
+          "Requiring at least 15,000 votes per film changed the list entirely. The top seven became internationally recognized actresses, led by Kate Winslet (7.04), and both film counts and ratings became far more uniform. The lesson is clear: a minimum vote threshold is essential whenever performers are compared by average rating."
+        ],
+        "figures": [
+          {
+            "src": "img/imdb-sql/actresses-vote-threshold.png",
+            "title": "The effect of a vote threshold",
+            "caption": "Film counts for the top seven actresses without a vote threshold (left) and with at least 15,000 votes per film (right)."
+          },
+          {
+            "src": "img/imdb-sql/table-top-performers.png",
+            "title": "The three rankings side by side",
+            "caption": "Adding the vote threshold lowers the average rating from 7.80 to 6.95 but produces a far more credible list."
+          }
+        ]
+      },
+      {
+        "h": "Actors vs. actresses",
+        "text": [
+          "Under exactly the same filters, the top seven actors, led by Leonardo DiCaprio (7.42), average a rating of 7.20, compared with 6.95 for the top seven actresses. Among performers who appear in many widely rated films, men tend to be associated with slightly higher-rated movies, a gap that may reflect differences in the roles offered to each gender."
+        ],
+        "figures": [
+          {
+            "src": "img/imdb-sql/top-actors.png",
+            "title": "Top seven actors",
+            "caption": "Film counts for the top seven actors with at least 20 films, an average rating of 6 or above, and 15,000+ votes per film."
+          }
+        ]
+      },
+      {
+        "h": "Does a bigger career mean better ratings?",
+        "text": [
+          "The second function asks whether performers who make more films in a genre earn better ratings. In mainstream genres, the answer is no: for actresses in romance and for actors in action, comedy, and drama, the trend line is almost flat, so career volume has little bearing on audience ratings.",
+          "Smaller genres behave differently. For actresses in crime and actors in fantasy, the trend line slopes upward, suggesting that repeat performers in niche genres may build stronger reputations over time. These genres contain far fewer performers, however, so their trend lines are less reliable and should be read with caution."
+        ],
+        "figures": [
+          {
+            "src": "img/imdb-sql/genre-mainstream.png",
+            "title": "Romance and action",
+            "caption": "Actresses in romance (left) and actors in action (right). In both mainstream genres, the trend line is nearly flat."
+          },
+          {
+            "src": "img/imdb-sql/genre-comedy-drama.png",
+            "title": "Comedy and drama",
+            "caption": "Actors in comedy (left) and drama (right): again, more films do not translate into better ratings."
+          },
+          {
+            "src": "img/imdb-sql/genre-niche.png",
+            "title": "Crime and fantasy",
+            "caption": "Actresses in crime (left) and actors in fantasy (right). In these smaller genres, the trend line slopes upward, although the data are sparser."
+          },
+          {
+            "src": "img/imdb-sql/table-genres.png",
+            "title": "Summary by genre",
+            "caption": "Average rating and trend direction for each genre tested."
+          }
+        ]
+      },
+      {
+        "h": "Conclusion",
+        "text": [
+          "Two findings stand out. First, rankings by average rating are only as good as their filters: without a vote threshold, they reward volume and small, enthusiastic audiences rather than broad acclaim. Second, specializing in a genre appears to pay off only in smaller genres; in mainstream ones, experience alone does not move ratings."
+        ]
+      }
     ]
   }
 ];
@@ -809,13 +1455,24 @@ function renderProjectList() {
     </li>`).join("");
 }
 
-function renderDetail(p) {
-  const figs = (p.figures || []).map(f => `
+function renderFigure(f) {
+  return `
     <figure>
       <div class="fig-box"><img src="${esc(f.src)}" alt="${esc(f.title)}" loading="lazy"
         onerror="this.parentNode.innerHTML='<div class=&quot;fig-missing&quot;>Image not added yet:<br>${esc(f.src)}</div>'"></div>
       <figcaption><strong>${esc(f.title)}.</strong> ${esc(f.caption)}</figcaption>
-    </figure>`).join("");
+    </figure>`;
+}
+
+function renderDetail(p) {
+  const sections = (p.sections || []).map(s => `
+    <section class="dsec">
+      <h2>${esc(s.h)}</h2>
+      ${(s.text || []).map(t => `<p>${esc(t)}</p>`).join("")}
+      ${(s.bullets || []).length ? `<ul>${s.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
+      ${s.code ? `<pre class="code"><code>${esc(s.code)}</code></pre>` : ""}
+      ${(s.figures || []).map(renderFigure).join("")}
+    </section>`).join("");
   document.getElementById("detail").innerHTML = `
     <button class="back" type="button" onclick="goHome()">Back to all projects</button>
     <h1>${esc(p.title)}</h1>
@@ -825,8 +1482,9 @@ function renderDetail(p) {
     <div class="detail-cols">${(p.lists || []).map(l => `
       <div><h2>${esc(l.h)}</h2><ul>${l.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`).join("")}
     </div>
-    ${figs}
-    <button class="back" type="button" onclick="goHome()">Back to all projects</button>`;
+    ${sections}
+    ${(p.figures || []).map(renderFigure).join("")}
+    <button class="back back-end" type="button" onclick="goHome()">Back to all projects</button>`;
 }
 
 function route() {
