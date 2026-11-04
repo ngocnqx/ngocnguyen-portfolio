@@ -1,4 +1,11 @@
-Images for this project. The site expects:
+Images for the VNPay customer segmentation project, all taken from the project deck:
+- customer-base.png
+- daily-transactions.png
+- session-hours.png
+- cinemas-channels.png
 - segments.png
-
-To add more images, put them here and add an entry to this project's figures list in index.html.
+- cluster-sizes.png
+- cluster-genres.png
+- cluster-profiles.png
+- cluster-timelines.png
+- cluster-calendars.png

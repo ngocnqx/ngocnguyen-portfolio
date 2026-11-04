@@ -516,20 +516,52 @@ const PROJECTS = [
     title: "Customer Segmentation for a Movie-Ticketing Platform",
     kind: "Python, SQL, Clustering",
     tags: ["RFM Segmentation", "K-means Clustering", "25.2M+ Transactions", "Retention"],
-    teaser: "Segmented 25.2M+ transactions into customer groups using RFM scores and K-means clustering.",
-    lede: "At VNPay, I segmented movie-ticketing customers by how recently, how often, and how much they buy, then clustered them to find groups the marketing team could target differently.",
+    teaser: "Turned 25.2M ticket purchases from 1M+ customers into five value tiers, four behavioral segments, and three marketing plays.",
+    lede: "During my internship at VNPay, I analyzed more than 25 million movie-ticket purchases to answer a deceptively simple question: who goes to the cinema, when, and why do so many of them stop? I profiled viewing habits, scored every customer on recency and frequency, clustered them by taste and timing, and translated the results into concrete campaign recommendations for the marketing team.",
     facts: [
       { k: "Tools", v: "Python, SQL" },
-      { k: "Methods", v: "RFM scoring, K-means clustering" },
-      { k: "Data", v: "25.2M+ transactions" },
-      { k: "Question", v: "Which customers are worth re-engaging, and how?" }
+      { k: "Methods", v: "RFM scoring, K-means clustering (4 clusters), time-series and calendar analysis" },
+      { k: "Data", v: "25,240,536 transactions from 1,015,828 customers" },
+      { k: "Question", v: "Which customers are worth re-engaging, and what would bring them back?" }
     ],
     lists: [
-      { h: "What I did", items: ["Cleaned and aggregated raw transactions in SQL", "Scored recency, frequency, and monetary value per customer", "Chose the number of clusters with [elbow / silhouette method]"] },
-      { h: "Findings", items: ["[Segment 1: size and behavior]", "[Segment 2: size and behavior]", "[Recommendation the team could act on]"] }
+      { h: "What I did", items: [
+        "Cleaned and aggregated the raw transaction log in SQL, then profiled customers by generation, city tier, cinema, and booking channel",
+        "Mapped demand by day, hour, and holiday period to identify when customers actually buy",
+        "Scored every customer on recency and frequency and grouped them into five RFM value tiers",
+        "Clustered customers with K-means on genre preference and purchase timing, producing four distinct behavioral segments",
+        "Turned the analysis into three campaign proposals and presented them to team leads and cross-functional stakeholders"
+      ]},
+      { h: "Key findings", items: [
+        "Demand is overwhelmingly seasonal: daily transactions climb from roughly 10,000 on an ordinary day to more than a million at the Lunar New Year peak, with smaller surges at Christmas and the New Year",
+        "Viewing is an after-work habit: showtimes from 18:00 to 19:00 account for about 14% of sessions each, and even late-evening slots outsell every daytime hour",
+        "In peak periods, 70 to 90% of viewers choose one of the one or two most popular titles, typically a Vietnamese comedy or romance released within the previous two weeks",
+        "The audience is young and urban: Gen Z makes up roughly 85% of customers with a known age, and about 69% live in special-class cities (Hanoi and Ho Chi Minh City)",
+        "Retention is strong but leaky: Champions and Loyal customers together account for over 41% of the base, yet a further 38% have lapsed, including 16% who were once high-value"
+      ]},
+      { h: "Four behavioral segments", items: [
+        "Cluster 0, the devoted drama fans (15% of customers): drawn to drama, thrillers, and crime; buy throughout the week, averaging 74 transactions each, and are largely loyal",
+        "Cluster 1, the occasional holiday crowd (59%): favor mainstream comedy, romance, and horror, but surface almost exclusively at major holidays and on special days such as 8 March; most are recent or already lapsed, averaging just 6 transactions",
+        "Cluster 2, the families (23%): prefer adventure, fantasy, and animation, and concentrate their visits at the end of the week, from Thursday to Saturday",
+        "Cluster 3, the cinephiles (3%): a small but intensely engaged group that gravitates toward science fiction, documentaries, and mystery, averaging 167 transactions each"
+      ]},
+      { h: "Recommendations", items: [
+        "Concentrate social-media spend on popular Vietnamese comedies and romances in their first week of release, timed to the four windows that drive demand: Christmas (22 to 27 December), the New Year (28 December to 2 January), Lunar New Year, and the 30 April to 1 May holiday (29 April to 4 May)",
+        "Launch weekend family bundles from Thursday to Sunday on animation, adventure, and fantasy titles, such as discounts on four or more tickets, child pricing, and complimentary popcorn or drinks",
+        "Partner on ride-hailing vouchers to and from cinemas on weekends and family-heavy days, lowering the practical barrier to a trip to the cinema"
+      ]}
     ],
     figures: [
-      { src: "img/vnpay-rfm/segments.png", title: "Customer segments by recency and frequency", caption: "About 1.02M customers split into five RFM segments. Loyal customers are the largest group (24%), but Lost customers are close behind (22%), so there is a large group worth winning back." }
+      { src: "img/vnpay-rfm/customer-base.png", title: "Who the customers are", caption: "Gen Z dominates every age group with a known birth year, and special-class cities account for roughly 69% of all customers." },
+      { src: "img/vnpay-rfm/daily-transactions.png", title: "Demand by day", caption: "Daily transactions stay modest for most of the year, then surge around Christmas and the New Year and explode during the Lunar New Year holiday, when a single day can exceed a million purchases." },
+      { src: "img/vnpay-rfm/session-hours.png", title: "Demand by hour", caption: "Share of sessions by showtime. Attendance builds through the afternoon, peaks between 18:00 and 19:00, and tapers after 20:00, although late-evening slots still outsell every daytime hour." },
+      { src: "img/vnpay-rfm/cinemas-channels.png", title: "Where tickets are sold", caption: "Tickets by cinema (left) and by booking channel (right). A handful of cinemas and two to four channels capture the overwhelming majority of sales, leaving a long tail of minor players." },
+      { src: "img/vnpay-rfm/segments.png", title: "Five RFM value tiers", caption: "About 1.02M customers by recency and frequency. Loyal customers form the largest tier (24%), but Lost customers are close behind (22%), which makes win-back campaigns a clear priority." },
+      { src: "img/vnpay-rfm/cluster-sizes.png", title: "How the four clusters differ in size and engagement", caption: "Cluster 1 holds 59% of customers but averages only 6 transactions each, whereas the tiny Cluster 3 averages 167. The right panel shows how purchase frequency is distributed within each cluster." },
+      { src: "img/vnpay-rfm/cluster-genres.png", title: "What each cluster watches", caption: "Each row shows how a genre's viewers are spread across the four clusters. Cluster 0 dominates crime, thrillers, and drama; Cluster 2 leads on adventure and fantasy; Cluster 3 over-indexes on documentaries and science fiction." },
+      { src: "img/vnpay-rfm/cluster-profiles.png", title: "Cluster profiles by RFM tier, generation, and city", caption: "Cluster 1 is made up largely of Recent and Lost customers, while Clusters 0 and 3 lean toward Champions and Loyal customers. Gen Z and special-class cities dominate every cluster." },
+      { src: "img/vnpay-rfm/cluster-timelines.png", title: "Daily transactions by cluster", caption: "All four clusters peak in the same holiday windows, but Cluster 1 barely registers outside them, confirming that its members are seasonal rather than habitual viewers." },
+      { src: "img/vnpay-rfm/cluster-calendars.png", title: "Purchase calendars by cluster", caption: "Calendar heatmaps of purchase volume, where red marks the busiest days. Clusters 0 and 3 buy steadily across the week, Cluster 1 appears mainly around holidays and special dates, and Cluster 2 clusters its visits at the end of the week." }
     ]
   },
   {
