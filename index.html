@@ -592,36 +592,42 @@ const PROJECTS = [
     id: "maersk-trade-risk",
     title: "Maersk Trade Value & Mode-Switching Risk",
     kind: "Power BI, SQL, Supply Chain",
-    status: "SQL layer in progress",
-    tags: ["Trade Flows", "Transport Mode Mix", "Risk Switching Score", "SQL Views"],
-    teaser: "Which traded products depend most on sea freight, and how easily could they switch to another transport mode?",
-    lede: "I analyzed trade flows by product, country, and transport mode to see which goods depend most on shipping by sea, and built a custom Risk Switching Score for how exposed each product is if sea routes are disrupted. I'm now rebuilding the logic as a SQL layer underneath the Power BI dashboard.",
+    tags: ["UN Comtrade", "Sea Dependency", "Air Feasibility", "Data Quality"],
+    teaser: "Mapped $33T of trade across 1,288 products to find the goods and countries that would be hit hardest if sea routes were disrupted, and that cannot simply be flown instead.",
+    lede: "If a major shipping lane closed tomorrow, which goods would stop moving, and which could simply be flown instead? To answer that, I analyzed $33 trillion of UN Comtrade trade flows by product, country, and transport mode, scored every product on how dependent it is on the sea and how feasible air freight would be, and turned the results into a supply-chain risk dashboard. Along the way, I discovered that a single mislabeled column had reversed the conclusion of the original report, which led me to build automated data-quality checks into every refresh.",
     facts: [
       { k: "Tools", v: "Power BI, DAX, SQL" },
-      { k: "Data", v: "Trade records by product, country, transport mode, and year [confirm source, e.g. UN Comtrade]" },
-      { k: "Key metric", v: "Custom Risk Switching Score" },
-      { k: "Question", v: "Where is trade most exposed to a sea-freight disruption?" }
+      { k: "Data", v: "UN Comtrade: 1,288 HS4 products, 11 reporting countries, 2021 to 2023" },
+      { k: "Key metrics", v: "Sea dependency, air feasibility (0 to 1), and a combined risk score with High, Medium, and Low tiers" },
+      { k: "Question", v: "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?" }
     ],
     links: [
       { label: "Code and README on GitHub", url: "GITHUB_REPO_URL_HERE" }
     ],
     lists: [
       { h: "What I built", items: [
-        "Trade value by transport mode, with mode names joined from a lookup table",
-        "Water dependence by product: the share of each product's trade value that moves by sea",
-        "A Risk Switching Score measuring how easily each product could move to another mode",
-        "SQL views (CTEs and window functions) feeding the Power BI dashboard [in progress]"
+        "A seven-page Power BI dashboard covering the mode mix, product categories, product-level risk, country exposure, value concentration, and data quality",
+        "Sea dependency for every product (the share of its trade value moving by sea) and an air-feasibility score (0 = cannot realistically fly, 1 = flies easily), combined into a 0 to 1 risk score",
+        "A product classifier whose accuracy on 100 hand-checked products rose from 54% (original keywords) to 88% (improved keywords) to 94% (official HS chapters)",
+        "Nineteen data-quality rules across the API and legacy sources, each with a documented decision, from rejecting rows to flagging them for disclosure"
       ]},
-      { h: "Findings", items: [
-        "[Most sea-dependent products and their share of trade value]",
-        "[Products with the highest switching risk]",
-        "[What this means for a shipper or trader]"
+      { h: "Key findings", items: [
+        "Sea freight carries 34.2% of the $33.3T in trade value, 2.76 times as much as air; road is the single largest mode, and the overall mix stayed broadly stable from 2021 to 2023",
+        "Energy & Fuels is the most sea-dependent category (58% by sea), followed by Agriculture & Food (43%), whereas Electronics & Machinery relies on the sea least (23%) and on air most (28%)",
+        "Risk is highly concentrated: 272 high-risk products account for 64% of all sea-shipped value, led by soybeans, palm oil, refined petroleum, fertilizers, sugar, and semi-finished steel",
+        "Most of these goods are worth about $1 per kilogram or less, so switching them to air is economically unrealistic",
+        "Exposure varies sharply by country: 83% of Brazil's trade moves by sea, compared with 61% for Viet Nam, 56% for Türkiye and Malaysia, and just 21% for Germany",
+        "In the legacy data, the value column recorded counts rather than dollars; using it as money had reversed the original report's conclusion"
+      ]},
+      { h: "Recommendations", items: [
+        "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
+        "Focus monitoring on the most sea-exposed trading partners: Brazil, Viet Nam, Malaysia, and Türkiye",
+        "Reserve air capacity for the short list of valuable sea-shipped goods, which make up only 0.13% of sea value",
+        "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
+        "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
       ]}
     ],
-    figures: [
-      { src: "img/maersk-trade-risk/dashboard.png", title: "Trade value by transport mode", caption: "How total trade value splits across air, road, sea, water, and land, with exports and imports compared for each mode." },
-      { src: "img/maersk-trade-risk/risk.png", title: "Which categories are most at risk of mode switching", caption: "Sea value vs. value already moving by other modes, and the Risk Switching Score by category. Metals & Minerals and Electronics & Machinery score highest; Energy & Fuels scores lowest." }
-    ]
+    figures: []
   },
   {
     id: "beauty-labor-market",
