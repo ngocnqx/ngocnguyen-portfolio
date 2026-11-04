@@ -667,38 +667,58 @@ const PROJECTS = [
     id: "gender-wage-gap",
     title: "The Gender Wage Gap, 2012–2025: What Closed and What Didn't",
     kind: "Stata, Python, Labor Economics",
-    status: "Preliminary",
-    tags: ["IPUMS CPS", "2.37M Workers", "Fixed Effects", "Quantile Regression"],
-    teaser: "Tracked the U.S. gender wage gap across 14 survey years and 2.37M workers, separating education, occupation, and family effects.",
-    lede: "Using 14 years of Current Population Survey data, I measured how the gender wage gap changed from 2012 to 2025, how much of it is explained by education, experience, and the jobs people hold, and how it differs across the pay distribution and between parents and non-parents.",
+    tags: ["IPUMS CPS", "644K Workers", "Oaxaca-Blinder", "Quantile Regression", "Fixed Effects"],
+    teaser: "Fourteen years of Census survey data and 644,000 workers show that, once you compare like with like, the U.S. gender wage gap has not closed at all.",
+    lede: "Headlines often suggest that the gender wage gap is slowly disappearing. I tested that claim with fourteen years of Current Population Survey data covering 644,115 full-time workers. The answer is sobering: once women and men with the same education, experience, and region are compared, women still earn about 21% less, exactly as they did in 2012. The modest narrowing in the raw gap is almost entirely explained by women's growing educational advantage, while the gap at the top of the pay ladder has actually widened. The project runs in two parts: a detailed 2012 cross-section that asks where the gap is largest and why, and a 2012 to 2025 panel of cross-sections that asks whether anything has changed.",
     facts: [
-      { k: "Tools", v: "Stata (main analysis), Python (validation)" },
-      { k: "Data", v: "IPUMS CPS ASEC, 14 survey years, 2.37M people" },
-      { k: "Sample", v: "Full-time, full-year wage and salary workers" },
-      { k: "Methods", v: "OLS on log wages with stepwise controls, occupation and industry fixed effects, quantile regression, survey weights" }
+      { k: "Tools", v: "Python (pandas, statsmodels, pyfixest, matplotlib), with the original analysis replicated in Stata" },
+      { k: "Data", v: "CPS March 2013 supplement (59,485 workers) and IPUMS CPS ASEC 2013 to 2026, covering earnings from 2012 to 2025 (644,115 workers drawn from 2.37M records)" },
+      { k: "Sample", v: "Full-time, full-year wage and salary workers aged 21 to 64" },
+      { k: "Methods", v: "Survey-weighted OLS, interaction models, occupation and industry fixed effects, quantile regression, Oaxaca-Blinder decomposition" }
     ],
     links: [
       { label: "Code and README on GitHub", url: "GITHUB_REPO_URL_HERE" },
       { label: "Data source: IPUMS CPS", url: "https://cps.ipums.org/cps/" }
     ],
     lists: [
-      { h: "Findings", items: [
-        "The gap hasn't really closed: comparing women and men with the same education and experience, it stayed flat at about 21% from 2012 to 2025",
-        "The raw gap narrowed only slightly (17.2% to 15.8%), and mostly because women's education advantage over men kept growing",
-        "Within the same occupation and industry the gap did shrink (15.5% to 12.7%), suggesting much of what's left is about which jobs women end up in",
-        "The glass ceiling got thicker: the gap improved at the 10th percentile (20% to 18%) but worsened at the 90th (28% to 31%)",
-        "A family gap: marriage raises men's wages about twice as much as women's, and fathers earn about 5% more than childless men while mothers earn 2–3% less than childless women"
+      { h: "Key findings", items: [
+        "The gap has not closed: holding education, experience, and region constant, women earn about 21% less than men in both 2012 and 2025, and the change is statistically indistinguishable from zero (p = 0.71)",
+        "The raw gap narrowed only slightly, from 17.2% to 15.8%, and only because women's educational advantage over men kept growing",
+        "Within the same occupation and industry, the gap did shrink, from 15.5% to 12.7%, so what remains is increasingly about which jobs women and men hold rather than unequal pay for the same job",
+        "The glass ceiling has thickened: the gap narrowed at the 10th percentile (18.3% to 16.5%) but widened at the 90th (24.7% to 26.3%)",
+        "Family status pulls in opposite directions: marriage lifts men's wages by 23% but women's by only 10%, and children add 5% for fathers while costing mothers 2%. As a result, the gap is 12% for single women without children but 27% for married mothers"
       ]},
-      { h: "Approach and checks", items: [
-        "Estimated the gap year by year with three nested models: raw, plus education, experience, and region, then plus occupation and industry fixed effects (42 regressions)",
-        "Used quantile regression to compare the gap at the bottom and top of the wage distribution",
-        "Validated the 2013 year against a course dataset: a controlled gap of −0.239 vs. −0.236, with near-identical education, age, and female share",
-        "Restricted to wage and salary workers, so the motherhood penalty is likely understated because women who left full-time work drop out of the sample"
+      { h: "Where the gap is largest (2012)", items: [
+        "Differences in characteristics explain none of the gap: women are slightly better educated, so the unexplained component is 122% of the raw gap",
+        "The gap widens steadily up the wage distribution, from 18% at the 10th percentile to about 23% at the 80th, a classic glass-ceiling pattern",
+        "It opens up over the life cycle, rising from 15% among workers in their twenties to 24% in their forties, the years in which most people raise children",
+        "Measured by potential experience, it grows from under 5% at career entry to roughly 24% after 25 to 30 years",
+        "It does not differ meaningfully by region: estimates range from 18% to 21%, and the regional differences are jointly insignificant (p = 0.14)"
+      ]},
+      { h: "Methods and robustness", items: [
+        "Ran 42 survey-weighted regressions, three nested specifications for each of 14 years, adding occupation and industry fixed effects in the strictest model",
+        "Formally tested whether the controlled gap changed between 2012 and 2025 rather than relying on visual trends",
+        "Validated the pipeline twice: the 2013 IPUMS sample reproduces the course dataset's estimate (−0.239 vs. −0.236), and the Python results match the original Stata output",
+        "Handled the 2014 redesign of the income questionnaire by keeping only respondents who received the new questions, so every year is measured consistently"
+      ]},
+      { h: "Limitations", items: [
+        "These are differences between otherwise similar workers, not proof of discrimination: hours flexibility, field of study, and job tenure are not observed",
+        "The full-time, full-year sample excludes part-time workers, who are disproportionately women, and mothers who stay in full-time work are a selected group, so the motherhood penalty is probably understated",
+        "Wage income is top-coded for very high earners, which affects the 90th-percentile estimates most"
       ]}
     ],
     figures: [
-      { src: "img/gender-wage-gap/trend.png", title: "The gap by year, three models", caption: "Raw, controlled, and within-job gaps from 2012 to 2025. The controlled gap barely moves." },
-      { src: "img/gender-wage-gap/quantiles.png", title: "The gap across the pay distribution", caption: "The gap at the 10th vs. 90th percentile over time." }
+      { src: "img/gender-wage-gap/trend.png", title: "Has the gap closed? Three ways of measuring it", caption: "The raw gap (blue) narrows a little and the within-job gap (green) narrows more, but the gap between comparable women and men (orange) is essentially flat at about 21% from 2012 to 2025." },
+      { src: "img/gender-wage-gap/table-trend.png", title: "Table 2. The gap in 2012 and 2025", caption: "Average and distributional gaps at the start and end of the period. Only the within-job gap and the bottom of the distribution improved; the top got worse." },
+      { src: "img/gender-wage-gap/quantiles.png", title: "A thicker glass ceiling", caption: "The gap at each decile of the wage distribution in 2012 and 2025. Low earners saw modest progress, while the gap among the highest earners widened to more than 26%." },
+      { src: "img/gender-wage-gap/family.png", title: "The family gap, 2022 to 2025", caption: "The gap relative to men with the same family status. It more than doubles from single women without children (12%) to married mothers (27%)." },
+      { src: "img/gender-wage-gap/table-family.png", title: "Table 4. Marriage, children, and the gap", caption: "Regression estimates for an early and a recent period, with the implied gap for each family type. The point estimates for both the marriage and the motherhood penalties are slightly larger in the recent period." },
+      { src: "img/gender-wage-gap/wage-distribution.png", title: "Hourly earnings by gender, 2012", caption: "Women's wage distribution sits visibly to the left of men's, with fewer women at the top end." },
+      { src: "img/gender-wage-gap/table-baseline.png", title: "Table 1. Building up the 2012 model", caption: "Adding controls step by step. Because women are better educated, controlling for education makes the gap larger rather than smaller." },
+      { src: "img/gender-wage-gap/quantiles-2012.png", title: "The 2012 gap across the wage distribution", caption: "Quantile regression estimates with 95% confidence intervals. The gap rises from about 18% at the bottom to about 23% at the top, compared with the 21% average (dashed line)." },
+      { src: "img/gender-wage-gap/gap-by-age.png", title: "The gap over the life cycle", caption: "The gap peaks among workers in their forties at about 24%, consistent with the timing of childbearing, although the 2012 data cannot test that link directly." },
+      { src: "img/gender-wage-gap/gap-by-experience.png", title: "The gap by years of experience", caption: "Women and men start their careers on nearly equal footing, but the gap widens rapidly over the first 20 years and only levels off later." },
+      { src: "img/gender-wage-gap/table-decomposition.png", title: "Table 3. Explained vs. unexplained gap", caption: "Oaxaca-Blinder decomposition. Women's education advantage means their characteristics predict slightly higher pay, so the entire gap, and more, is unexplained." }
     ]
   },
   {

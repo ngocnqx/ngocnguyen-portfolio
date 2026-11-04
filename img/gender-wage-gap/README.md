@@ -1,5 +1,1 @@
-Images for this project. The site expects:
-- trend.png
-- quantiles.png
-
-To add more images, put them here and add an entry to this project's figures list in index.html.
+Images for the gender wage gap project. Figures come from the project notebooks; tables were rebuilt from the regression output.
