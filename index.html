@@ -726,8 +726,8 @@ const PROJECTS = [
     ]
   },
   {
-    "id": "maersk-trade-risk",
-    "title": "Maersk Trade Value & Mode-Switching Risk",
+    "id": "maritime-trade-risk",
+    "title": "Maritime Trade Risk: Which Goods Cannot Leave the Sea?",
     "kind": "Power BI, SQL, Supply Chain",
     "tags": [
       "UN Comtrade",
@@ -755,12 +755,6 @@ const PROJECTS = [
         "v": "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?"
       }
     ],
-    "links": [
-      {
-        "label": "Code and README on GitHub",
-        "url": "GITHUB_REPO_URL_HERE"
-      }
-    ],
     "lists": [
       {
         "h": "At a glance",
@@ -782,7 +776,7 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/modes.png",
+            "src": "img/maritime-trade-risk/modes.png",
             "title": "Trade value by transport mode",
             "caption": "Left: total trade value by mode. Right: each mode group's share by year, which barely changes from 2021 to 2023."
           }
@@ -796,12 +790,12 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/category-sea-share.png",
+            "src": "img/maritime-trade-risk/category-sea-share.png",
             "title": "Sea dependency by category",
             "caption": "Share of each category's trade value moving by sea. Energy & Fuels leads at 58%."
           },
           {
-            "src": "img/maersk-trade-risk/category-table.png",
+            "src": "img/maritime-trade-risk/category-table.png",
             "title": "Category detail",
             "caption": "Trade value, sea dependency, air share, and value per kilogram for each category. The dashboard lets users drill down to HS chapter and product level."
           }
@@ -815,12 +809,12 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/risk-scatter.png",
+            "src": "img/maritime-trade-risk/risk-scatter.png",
             "title": "Sea dependency vs. air feasibility",
             "caption": "Each bubble is a product, sized by trade value and colored by risk tier. High-risk products cluster in the bottom right: sea-bound and unable to fly."
           },
           {
-            "src": "img/maersk-trade-risk/risk-products.png",
+            "src": "img/maritime-trade-risk/risk-products.png",
             "title": "The highest-risk products",
             "caption": "Sea-bound goods that cannot realistically switch to air, led by soybeans, palm oil, and refined petroleum."
           }
@@ -833,12 +827,12 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/country-sea-share.png",
+            "src": "img/maritime-trade-risk/country-sea-share.png",
             "title": "Sea dependency by country",
             "caption": "Share of each reporting country's trade that moves by sea."
           },
           {
-            "src": "img/maersk-trade-risk/country-table.png",
+            "src": "img/maritime-trade-risk/country-table.png",
             "title": "Country exposure detail",
             "caption": "Sea dependency, total trade value, and the most sea-dependent category for each country."
           }
@@ -851,7 +845,7 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/pareto.png",
+            "src": "img/maritime-trade-risk/pareto.png",
             "title": "Top products and cumulative share",
             "caption": "Bars show the ten largest products by value; the line shows their cumulative share of total trade."
           }
@@ -865,7 +859,7 @@ const PROJECTS = [
         ],
         "figures": [
           {
-            "src": "img/maersk-trade-risk/data-quality.png",
+            "src": "img/maritime-trade-risk/data-quality.png",
             "title": "Data-quality rules",
             "caption": "Every rule, how many rows failed it, and the decision taken. The checks run on every refresh."
           }
@@ -911,12 +905,6 @@ const PROJECTS = [
       {
         "k": "Original paper",
         "v": "Hamermesh & Biddle (1994), American Economic Review"
-      }
-    ],
-    "links": [
-      {
-        "label": "Code and write-up on GitHub",
-        "url": "GITHUB_REPO_URL_HERE"
       }
     ],
     "lists": [
@@ -1054,10 +1042,6 @@ const PROJECTS = [
     ],
     "links": [
       {
-        "label": "Code and README on GitHub",
-        "url": "GITHUB_REPO_URL_HERE"
-      },
-      {
         "label": "Data source: IPUMS CPS",
         "url": "https://cps.ipums.org/cps/"
       }
@@ -1183,7 +1167,7 @@ const PROJECTS = [
       {
         "h": "Robustness checks",
         "bullets": [
-          "The 2013 IPUMS sample reproduces the course dataset's estimate closely (−0.239 vs. −0.236), and the Python results match the original Stata output",
+          "The 2013 IPUMS sample reproduces the Stock & Watson teaching dataset's estimate closely (−0.239 vs. −0.236), and the Python results match the original Stata output",
           "The 2014 survey tested a redesigned income questionnaire on part of the sample; I kept only respondents who received the new questions, so every year is measured consistently",
           "Average gaps use ASEC survey weights with robust standard errors; the Python quantile regressions are unweighted, while the Stata version is weighted"
         ]
@@ -1222,10 +1206,6 @@ const PROJECTS = [
       {
         "k": "Question",
         "v": "Does money buy happiness, or do social factors matter as much as GDP?"
-      },
-      {
-        "k": "Course",
-        "v": "DATA 200"
       }
     ],
     "lists": [
@@ -1330,10 +1310,6 @@ const PROJECTS = [
       {
         "k": "Question",
         "v": "What makes a performer rank highly, and does a bigger career mean better ratings?"
-      },
-      {
-        "k": "Course",
-        "v": "DATA 200"
       }
     ],
     "lists": [
