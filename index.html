@@ -725,22 +725,41 @@ const PROJECTS = [
     id: "happiness-dashboard",
     title: "World Happiness Report Dashboard",
     kind: "Power BI, DAX",
-    tags: ["6-Page Dashboard", "GDP vs Happiness", "Confounders"],
-    teaser: "A six-page dashboard on how GDP relates to happiness, and what else confounds it.",
-    lede: "I built a six-page Power BI dashboard to test a simple question: does a richer country mean a happier one, once you account for other factors?",
+    tags: ["6-Page Dashboard", "GDP vs Happiness", "Social Support", "Corruption"],
+    teaser: "Does money buy happiness? A Power BI dashboard showing that wealth helps, but social support and trust in institutions can matter just as much.",
+    lede: "Does money buy happiness? Using World Happiness Report data, I built an interactive Power BI dashboard to put that question to the test. My position is that national income does rise alongside happiness, but economic growth alone does not guarantee greater well-being. Wealthier nations tend to be happier, yet other factors, above all social support and perceptions of corruption, carry real weight of their own, and in some cases they can override the GDP advantage altogether, allowing far poorer countries to outscore some of the world's richest on happiness.",
     facts: [
       { k: "Tools", v: "Power BI, DAX" },
+      { k: "Data", v: "World Happiness Report: ladder scores, logged GDP per capita, social support, healthy life expectancy, and perceived corruption by country" },
       { k: "Pages", v: "6" },
-      { k: "Question", v: "How much does GDP explain happiness?" },
+      { k: "Question", v: "Does money buy happiness, or do social factors matter as much as GDP?" },
       { k: "Course", v: "DATA 200" }
     ],
     lists: [
-      { h: "What I looked at", items: ["GDP per capita against happiness scores", "Confounding factors: [social support, life expectancy, freedom, etc.]"] },
-      { h: "Conclusion", items: ["[Your final position on GDP and happiness, in one sentence]"] }
+      { h: "My position", items: [
+        "National income does rise alongside happiness, but economic growth alone does not guarantee greater well-being",
+        "Social support and perceptions of corruption are important determinants in their own right, and in some cases they override the GDP advantage, so that far poorer nations outscore some of the world's richest"
+      ]},
+      { h: "What the dashboard shows", items: [
+        "Over the long run, GDP and happiness move in the same direction: from 2007 to 2019, the global average ladder score rose from about 5.42 to 5.59 as average logged GDP climbed from about 9.17 to 9.48",
+        "In the short run, however, they can diverge sharply: between 2012 and 2016, average GDP held close to its peak while average happiness fell to its lowest point of the period, around 5.39 in 2013",
+        "Across countries, both wealth and social support show clear positive relationships with happiness, so a strong social fabric matters alongside a strong economy",
+        "Perceived corruption pulls in the opposite direction: countries where corruption is seen as widespread report noticeably lower happiness",
+        "The spread between nations is striking: in 2021, Finland scored 7.8 on the ladder while Afghanistan scored just 2.5, a gap of more than five points"
+      ]},
+      { h: "How I built it", items: [
+        "An overview page with a world map grouping every country from \"very happy\" to \"very unhappy\", linked to region and country filters and summary cards for each driver",
+        "A dual-axis time series tracking average GDP and happiness side by side, with a country selector for drilling into any nation",
+        "Scatter plots with trend lines for GDP, social support, and corruption, to compare the strength and direction of each relationship",
+        "A ranking of the happiest, middle-ranked, and least happy nations, color-coded by tier"
+      ]}
     ],
     figures: [
       { src: "img/happiness-dashboard/overview.png", title: "Overview page", caption: "World map of countries grouped from very happy to very unhappy, with region and country filters and summary cards for GDP, happiness, life expectancy, social support, and corruption." },
-      { src: "img/happiness-dashboard/gdp-support.png", title: "Wealth, social support, and happiness", caption: "Both richer countries and countries with stronger social support tend to report higher happiness, which is why GDP alone can't tell the whole story." }
+      { src: "img/happiness-dashboard/gdp-happiness-trend.png", title: "GDP and happiness over time", caption: "Average happiness (green) and average logged GDP (purple), 2007 to 2019. Both end higher than they began, but from 2012 to 2016 GDP held steady near its peak while happiness slumped, a clear sign that growth alone does not guarantee well-being." },
+      { src: "img/happiness-dashboard/gdp-support.png", title: "Wealth, social support, and happiness", caption: "Richer countries and countries with stronger social support both tend to report higher happiness, which is why GDP alone cannot tell the whole story." },
+      { src: "img/happiness-dashboard/corruption.png", title: "Corruption and happiness", caption: "The relationship turns negative for corruption: the more widespread corruption is perceived to be, the lower a country's happiness tends to be." },
+      { src: "img/happiness-dashboard/happiest-nations.png", title: "The happiest and least happy nations, 2021", caption: "Finland, Denmark, and Iceland lead with scores above 7.5, while Rwanda, Zimbabwe, and Afghanistan trail far behind, with Afghanistan at just 2.5." }
     ]
   },
   {
