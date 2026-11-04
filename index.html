@@ -434,7 +434,7 @@ footer .links a:hover { color: var(--accent-ink); }
     </div>
     <nav class="links" aria-label="Contact">
       <a href="mailto:nguyengo@dickinson.edu">Email</a>
-      <a href="LINKEDIN_URL_HERE" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/ngoc-nguyen-231959311/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/ngocnqx" target="_blank" rel="noopener">GitHub</a>
       <a href="RESUME_LINK_HERE" target="_blank" rel="noopener">Resume PDF</a>
     </nav>
@@ -728,11 +728,12 @@ const PROJECTS = [
   {
     "id": "maritime-trade-risk",
     "title": "Maritime Trade Risk: Which Goods Cannot Leave the Sea?",
-    "kind": "Power BI, SQL, Supply Chain",
+    "kind": "SQL Server, Power BI, Python",
     "tags": [
-      "UN Comtrade",
-      "Sea Dependency",
-      "Air Feasibility",
+      "UN Comtrade API",
+      "SQL Server",
+      "Star Schema",
+      "Power BI",
       "Data Quality"
     ],
     "teaser": "Mapped $33T of trade across 1,288 products to find the goods and countries that would be hit hardest if sea routes were disrupted, and that cannot simply be flown instead.",
@@ -740,11 +741,11 @@ const PROJECTS = [
     "facts": [
       {
         "k": "Tools",
-        "v": "Power BI, DAX, SQL"
+        "v": "Python (Comtrade API), SQL Server, Power BI, DAX"
       },
       {
         "k": "Data",
-        "v": "UN Comtrade: 1,288 HS4 products, 11 reporting countries, 2021 to 2023"
+        "v": "UN Comtrade API (284,506 rows) for 11 reporting countries, 2021 to 2023, plus the original 9,948-row extract"
       },
       {
         "k": "Key metrics",
@@ -866,6 +867,18 @@ const PROJECTS = [
         ]
       },
       {
+        "h": "How the pipeline works",
+        "text": [
+          "The project runs end to end, from API extraction to a decision-ready report, so every number on the dashboard can be traced back through the warehouse to the raw API response."
+        ],
+        "bullets": [
+          "Extraction: a Python notebook pulls 284,506 rows from the UN Comtrade API, covering every HS4 product by transport mode for the 11 reporting countries that publish mode-of-transport detail",
+          "Warehouse: raw data lands in SQL Server staging tables, and a stored procedure loads a star schema (a trade fact table with commodity, category, transport mode, flow, reporter, and year dimensions) using MERGE upserts, transactions with TRY/CATCH, and an ETL log",
+          "Analysis layer: reporting views built with CTEs and window functions (RANK, PERCENT_RANK, LAG, running totals, and PERCENTILE_CONT) feed the dashboard, alongside a view of data-quality checks",
+          "Report: Power BI imports only from the reporting views, with DAX measures for share, sea dependency, value per kilogram, year-on-year change, Pareto, and Top N, plus drill-through and insight titles driven by DAX"
+        ]
+      },
+      {
         "h": "Recommendations",
         "bullets": [
           "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
@@ -874,6 +887,12 @@ const PROJECTS = [
           "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
           "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
         ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Code, SQL, and README on GitHub",
+        "url": "https://github.com/ngocnqx/sea-freight-exposure"
       }
     ]
   },
@@ -911,9 +930,9 @@ const PROJECTS = [
       {
         "h": "At a glance",
         "items": [
-          "The core result replicates: workers rated below average in looks earn significantly less, for both men and women",
-          "The penalty is larger for men than for women, as in the original",
-          "The premium for above-average looks is small and imprecisely estimated in both studies",
+          "The core result replicates: with controls, workers rated below average in looks earn significantly less, for both men and women",
+          "My controlled penalties (−0.143 for men, −0.115 for women) are close to, and slightly smaller than, the original's",
+          "The premium for above-average looks is small and statistically insignificant in both studies",
           "Looks appear to matter more in service jobs, but the subsample is too small for a firm conclusion"
         ]
       }
@@ -931,13 +950,6 @@ const PROJECTS = [
         "text": [
           "The original study combined three surveys; I had access to one, the 1977 Quality of Employment Survey. After applying the authors' sample restrictions, my sample contains 824 men and 436 women, compared with 959 and 539 in the original. Interviewers rated each respondent's appearance on a five-point scale, which I collapsed into below average, average, and above average, exactly as the authors did.",
           "My specification also differs in several ways: education is measured in continuous years rather than degree categories, industry is captured by a single service-sector indicator, and tenure, plant size, and vocational training are unavailable. These differences explain why my models with controls have a lower R² (0.308 for men and 0.300 for women, against 0.403 and 0.330 in the original)."
-        ],
-        "figures": [
-          {
-            "src": "img/beauty-labor-market/stata-code.png",
-            "title": "Part of my Stata do-file",
-            "caption": "The service-sector regressions, the visualizations, and the interaction model used for the extension."
-          }
         ]
       },
       {
@@ -956,32 +968,32 @@ const PROJECTS = [
       {
         "h": "Replication results",
         "text": [
-          "The main finding replicates. Workers rated below average earn significantly less than average-looking workers: my estimates are −0.199 log points for men and −0.138 for women, against −0.164 and −0.124 in the original. As in the original, the penalty is larger for men, and the premium for above-average looks is small and statistically insignificant for both sexes, confirming that plainness is penalized more reliably than beauty is rewarded.",
-          "The estimates in this table come from models without controls, as their low R² values show, so they are directionally comparable with the original but somewhat larger in magnitude."
+          "The main finding replicates. With the full set of controls, workers rated below average earn significantly less than average-looking workers: −0.143 log points for men, or about 13% less, and −0.115 for women, or about 11% less. These estimates are close to the original's −0.164 and −0.124, and they are significant at the same levels: 1% for men and 10% for women.",
+          "Without controls, the penalties are larger (−0.199 for men and −0.138 for women), so part of the raw gap reflects differences in experience, education, and other characteristics. As in the original, the penalty is larger for men than for women, and the premium for above-average looks is small and statistically insignificant for both sexes, confirming that plainness is penalized more reliably than beauty is rewarded."
         ],
         "figures": [
           {
-            "src": "img/beauty-labor-market/replication-table.png",
-            "title": "My Table 3 vs. the original",
-            "caption": "My estimates (left: men in column 1, women in column 2) next to Hamermesh and Biddle's Table 3 (right)."
+            "src": "img/beauty-labor-market/table3-corrected.png",
+            "title": "Table 3. The impact of looks on earnings",
+            "caption": "Men and women without controls (columns 1 and 3) and with the full set of controls (columns 2 and 4), compared with Hamermesh and Biddle's controlled estimates."
           }
         ]
       },
       {
         "h": "Does the gap persist within occupations?",
         "text": [
-          "Hamermesh and Biddle argued that if attractive workers simply sorted into jobs where looks raise productivity, the beauty gap should shrink once occupation is taken into account. It did not, which points toward employer discrimination. Restricting my sample to service-sector workers approximates their test.",
-          "For men, the results closely match the original: −0.185 log points for below-average looks and +0.016 for above-average looks. For women, the penalty is −0.091 and the premium rises to +0.112, consistent with the idea that looks matter more for women in customer-facing roles. However, the service subsample contains only 154 men and 191 women, so these estimates lack statistical power."
+          "Hamermesh and Biddle argued that if attractive workers simply sorted into jobs where looks raise productivity, the beauty gap should shrink once occupation is taken into account. It did not: below-average-looking men still faced penalties of roughly 16 to 19% after controlling for occupation, which points toward employer discrimination. Restricting my sample to service-sector workers approximates their test.",
+          "For men in services, the below-average penalty (−0.185 log points) is close to the original's occupation-controlled estimates, while the effect of above-average looks is essentially zero (−0.016). For women, the penalty is −0.091 and the premium rises to +0.112, consistent with the idea that looks matter more for women in customer-facing roles. With only 154 men and 191 women in the subsample, however, none of these estimates is statistically significant, so they are directionally consistent with the original rather than a firm confirmation."
         ],
         "figures": [
           {
             "src": "img/beauty-labor-market/service-sector-table.png",
             "title": "Service-sector results vs. the original",
-            "caption": "My service-sector regressions (left) next to the original Table 9, which controls for occupation (right)."
+            "caption": "My service-sector regressions for men (1) and women (2), next to the original Table 9, which controls for occupation."
           },
           {
             "src": "img/beauty-labor-market/wage-by-looks.png",
-            "title": "Mean log wage by looks",
+            "title": "Figure 1. Mean log wage by looks",
             "caption": "Above-average-looking workers earn more than below-average-looking workers, both in the service sector (left) and across all sectors (right), for men and women alike."
           }
         ]
@@ -989,22 +1001,29 @@ const PROJECTS = [
       {
         "h": "Extension: do looks matter more in service jobs?",
         "text": [
-          "To test the mechanism directly, I interacted the looks rating with a service-sector indicator and used margins to compare predicted wages at each rating. The service-sector line rises more steeply: in customer-facing jobs, each step up in looks is associated with a larger wage gain. The interaction is not statistically significant (p = 0.223), however, and the confidence intervals are wide, particularly at low ratings, which again reflects the small subsample."
+          "To test the mechanism directly, I interacted the five-point looks rating with a service-sector indicator and used margins to compare predicted wages at each rating. Outside services, each one-point increase in looks is associated with about 3% higher wages; within services, the gradient rises to about 10%. The difference between the two slopes is not statistically significant (p = 0.223), however, and the confidence intervals are wide, particularly at low ratings, which again reflects the small subsample."
         ],
         "figures": [
           {
             "src": "img/beauty-labor-market/margins.png",
-            "title": "Predicted wages by looks and sector",
+            "title": "Figure 2. Predicted wages by looks and sector",
             "caption": "Predicted log wage at each looks rating for service and non-service workers. The service-sector gradient is steeper, but the confidence intervals overlap."
           }
         ]
       },
       {
+        "h": "The Stata code",
+        "text": [
+          "The core of the do-file, which reproduces every estimate on this page from the original QES data."
+        ],
+        "code": "* Table 3: impact of looks on earnings, without and with controls\nglobal controls exper expersq educ union married black goodhlth ///\n                service bigcity smllcity south\nreg lwage belavg abvavg if female == 0, robust\nreg lwage belavg abvavg $controls if female == 0, robust\nreg lwage belavg abvavg if female == 1, robust\nreg lwage belavg abvavg $controls if female == 1, robust\n\n* Tables 8-9: service-sector workers only\nreg lwage belavg abvavg if service == 1 & female == 0, robust\nreg lwage belavg abvavg if service == 1 & female == 1, robust\n\n* Figure 1: mean log wage, below- vs. above-average looks\ncapture drop below\ngen below = .\nreplace below = 1 if belavg == 1\nreplace below = 0 if abvavg == 1\ngraph bar lwage, over(below) by(female) ytitle(\"Mean Log Wage\")\ngraph bar lwage if service == 1, over(below) by(female) ytitle(\"Mean Log Wage\")\n\n* Figure 2 (extension): does the looks gradient differ in service jobs?\nreg lwage looks i.service c.looks#i.service, robust\nmargins i.service, at(looks = (1 2 3 4 5))\nmarginsplot, title(\"Predicted Log Wage by Looks: Service vs Non-Service\")"
+      },
+      {
         "h": "Limitations and next steps",
-        "bullets": [
-          "Stronger identification: panel data with individual fixed effects would show whether changes in perceived attractiveness move wages, net of fixed personal traits",
-          "Better measurement: several standardized raters would reduce the noise in a single interviewer's judgment",
-          "Modern data: labor markets and social norms have changed since the 1970s, but explicitly rating workers' looks today raises serious ethical concerns, so future work would need less intrusive measures that study inequality without reinforcing it"
+        "text": [
+          "The most important limitation is identification. Like the original, this replication relies on a single interviewer rating and cross-sectional regressions, which leaves room for omitted variables and for reverse causation, since higher earnings may allow people to invest more in their appearance. Panel data with individual fixed effects would make it possible to test whether changes in perceived attractiveness are associated with changes in wages, net of fixed personal traits, and designs built around observable changes in appearance could strengthen causal claims further.",
+          "Measurement could also be improved. Combining several standardized ratings instead of a single interviewer's judgment would reduce measurement error, and a larger service-sector sample would give the occupational test the statistical power it currently lacks.",
+          "Finally, the data come from the 1970s, and labor markets and social norms have changed considerably since then. Replicating the study with contemporary data is important, but explicitly rating workers' physical attractiveness today would raise serious concerns about fairness, harassment, and bias. Future research would therefore need less intrusive and more ethically acceptable measures of appearance, framed to study inequality rather than reinforce it."
         ]
       }
     ]
