@@ -1,8 +1,8 @@
-# Ngoc Nguyen — Portfolio
+# ngocnguyen-portfolio
 
 Personal portfolio of Ngoc Nguyen, Dickinson College (Data Analytics, Finance & Quantitative Economics, May 2028).
 
-Live site: https://YOUR-USERNAME.github.io
+Live site: https://ngocnqx.github.io/ngocnguyen-portfolio/
 
 ## Structure
 - `index.html`: the whole site in one file (styles, content, and profile photo are built in)
