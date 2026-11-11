@@ -726,6 +726,173 @@ const PROJECTS = [
     ]
   },
   {
+    "id": "flight-delay-mdt",
+    "title": "Which Flights Out of Harrisburg Arrive Late? Predicting Delays with Machine Learning",
+    "kind": "Python, Machine Learning",
+    "tags": [
+      "Random Forest",
+      "Logistic Regression",
+      "Classification",
+      "29K Flights"
+    ],
+    "teaser": "29,281 flights from Harrisburg International Airport and two models: delays pile up through the day, and the last flight out is the riskiest.",
+    "lede": "Harrisburg International Airport (MDT) is the closest airport to Dickinson. I wanted to know which flights leaving it are most likely to arrive 15 minutes or more late, and whether a model could flag them before departure. I cleaned six years of U.S. Bureau of Transportation Statistics data, looked at when and where delays happen, and compared a Logistic Regression with a Random Forest. The clearest pattern is simple: delays build up as the day goes on.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Python (pandas, scikit-learn, imbalanced-learn, matplotlib, seaborn)"
+      },
+      {
+        "k": "Methods",
+        "v": "Feature engineering, Logistic Regression, Random Forest with 5-fold grid search, SMOTE, threshold tuning"
+      },
+      {
+        "k": "Data",
+        "v": "BTS On-Time Performance, 29,281 flights departing MDT, 2020 to 2025"
+      },
+      {
+        "k": "Question",
+        "v": "Which flights are most likely to arrive late, and can a model flag them in advance?"
+      }
+    ],
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "About 1 in 6 flights (17.4%) arrived 15+ minutes late",
+          "The delay rate climbs from 6.5% at 5 a.m. to 46.6% for 10 p.m. departures",
+          "Allegiant and Frontier flights, and routes to Florida leisure airports, are delayed most often",
+          "The Random Forest caught 56% of delayed flights, with a ROC-AUC of 0.67 against 0.65 for Logistic Regression"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "The data",
+        "text": [
+          "I started from the BTS monthly On-Time Performance files, kept only flights departing MDT, removed cancelled flights and rows without an arrival status, and kept the columns that are known before a flight leaves: date, scheduled departure time, carrier, destination, distance, and scheduled flight time. That left 29,281 flights from 2020 to 2025, of which 17.4% arrived at least 15 minutes late.",
+          "I added two features. DEP_HOUR turns the scheduled departure time into an hour of the day. PREV_FLIGHT_DELAYED checks whether the same plane (matched by tail number) arrived late on its previous leg that day, to capture delays that carry over from one flight to the next."
+        ]
+      },
+      {
+        "h": "Delays build up through the day",
+        "text": [
+          "Time of day is the strongest pattern in the data. Only 6.5% of 5 a.m. departures arrive late, and most morning hours stay between about 10% and 17%. From the afternoon on, the rate keeps rising: 27% at 4 p.m., 40% at 9 p.m., and 46.6% for the last departures at 10 p.m. Small disruptions early in the day spread to later flights, so the last flights out absorb all of them."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/delay-by-hour.png",
+            "title": "Delay rate by departure hour",
+            "caption": "Share of flights arriving 15+ minutes late, by scheduled departure hour. The rate rises steadily after midday."
+          }
+        ]
+      },
+      {
+        "h": "Seasons and days of the week",
+        "text": [
+          "Delays also follow the travel calendar. They peak in summer (21.4% in June, 23.0% in July) and in December (21.6%), when planes are fullest and storms are more common, and they are lowest in September and October, at about 12%. Across the week, Tuesday is the calmest day (14%) and Sunday the worst (20%), with Thursday to Sunday all above average."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/delay-by-month.png",
+            "title": "Delay rate by month",
+            "caption": "Summer and December are the worst months; early fall is the best."
+          },
+          {
+            "src": "img/flight-delay-mdt/delay-by-weekday.png",
+            "title": "Delay rate by day of week",
+            "caption": "Delays are higher from Thursday to Sunday, when more people travel."
+          }
+        ]
+      },
+      {
+        "h": "Which airlines and routes",
+        "text": [
+          "Carriers differ a lot. Allegiant (G4), the largest carrier at MDT in this data with 4,843 flights, arrives late 30.6% of the time, and Frontier (F9) 28.5%. At the other end, Endeavor Air (9E) is late only 8.8% of the time and Delta 13.2%.",
+          "The most delayed destinations are mostly Florida leisure airports: Orlando Sanford (34.0%), Punta Gorda (31.5%), Orlando International (28.8%), and St. Pete-Clearwater (25.5%). By comparison, flights to Chicago O'Hare, the busiest route in the data with 5,601 flights, are late 17.4% of the time."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/delay-by-carrier.png",
+            "title": "Delay rate by carrier",
+            "caption": "Allegiant (G4) and Frontier (F9) have the highest delay rates. YV appears high but has only 7 flights."
+          },
+          {
+            "src": "img/flight-delay-mdt/delay-by-destination.png",
+            "title": "The 10 most delayed destinations",
+            "caption": "Labels show the number of flights. Florida leisure airports lead the list."
+          }
+        ]
+      },
+      {
+        "h": "When the previous flight is late",
+        "text": [
+          "If the same plane arrived late on its previous leg, the next flight arrived late 69.7% of the time, compared with 17.2% otherwise. That is a strong signal, but a rare one: only 132 of the 29,281 flights had a late previous leg in this data, because the dataset only covers flights leaving MDT. So the pattern is clear, but it helps the model on very few flights."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/previous-delay-heatmap.png",
+            "title": "Delay rate by hour and previous-flight delay",
+            "caption": "Color shows the delay rate and the numbers show how many flights fall in each cell. Late previous legs are rare, but when they happen the next flight is usually late too."
+          }
+        ]
+      },
+      {
+        "h": "Predicting delays",
+        "text": [
+          "I split the data into 80% for training and 20% for testing (5,857 flights) and compared two classifiers. Logistic Regression is a simple, interpretable baseline. The Random Forest can pick up nonlinear patterns, such as delays that only rise late in the day for certain carriers. Because only 17% of flights are delayed, I balanced the classes with class weights and SMOTE, tuned the Random Forest with a 5-fold grid search, and then picked the decision threshold that gave the best F1 score.",
+          "The Random Forest did slightly better on every summary measure: a ROC-AUC of 0.67 against 0.65, and an F1 score of 0.37 against 0.35. At its chosen threshold it caught 559 of the 995 delayed flights in the test set (56%). The cost is false alarms: it also flagged 1,479 on-time flights, so only about 27% of its warnings were real delays. That is still well above the 17% you would get by guessing, but it shows that schedule information alone can only go so far."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/confusion-matrix.png",
+            "title": "Random Forest confusion matrix",
+            "caption": "On the 5,857 test flights: 559 delays caught, 436 missed, and 1,479 false alarms."
+          },
+          {
+            "src": "img/flight-delay-mdt/roc-curve.png",
+            "title": "ROC curve",
+            "caption": "The Random Forest reaches a ROC-AUC of 0.67, compared with 0.50 for random guessing."
+          },
+          {
+            "src": "img/flight-delay-mdt/precision-recall.png",
+            "title": "Precision vs. recall",
+            "caption": "Catching more delays means accepting more false alarms. The area under the curve is 0.33, about twice the 0.17 baseline."
+          }
+        ]
+      },
+      {
+        "h": "What drives the predictions",
+        "text": [
+          "The model relies most on departure hour (about 24% of total importance), followed by scheduled flight time, month, and day of the week. Allegiant is the most important single carrier. Previous-flight delay ranks low, not because it doesn't matter, but because it is so rarely present in this data."
+        ],
+        "figures": [
+          {
+            "src": "img/flight-delay-mdt/feature-importance.png",
+            "title": "Top 10 predictors",
+            "caption": "Random Forest feature importance. Timing features dominate."
+          }
+        ]
+      },
+      {
+        "h": "The code",
+        "text": [
+          "The feature that links each flight to the same plane's previous leg, and the resampling and tuning pipeline for the Random Forest."
+        ],
+        "code": "# Was the same plane late on its previous leg that day?\ndf = df.sort_values(['TAIL_NUM', 'FL_DATE', 'CRS_DEP_TIME'])\ndf['PREV_FLIGHT_DELAYED'] = (\n    df.groupby(['TAIL_NUM', 'FL_DATE'])['ARR_DEL15'].shift(1).fillna(0).astype(int)\n)\n\n# Balance the classes, then tune the Random Forest with 5-fold CV\npipeline = ImbPipeline([\n    ('smote', SMOTE(random_state=42)),\n    ('rf', RandomForestClassifier(random_state=42, class_weight='balanced', n_jobs=-1))\n])\nparam_grid = {\n    'smote__sampling_strategy': [0.5, 0.75, 1.0],\n    'rf__n_estimators': [200, 300],\n    'rf__max_depth': [10, 15],\n    'rf__min_samples_split': [2, 5],\n    'rf__min_samples_leaf': [1, 2],\n    'rf__max_features': ['log2'],\n}\ngrid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='f1', n_jobs=-1)\ngrid_search.fit(X_train, y_train)"
+      },
+      {
+        "h": "Limitations and next steps",
+        "bullets": [
+          "The data has no weather, airport congestion, or air traffic information, which are among the main real causes of delays",
+          "It covers one small airport, so the results may not carry over to large hubs",
+          "I chose the decision threshold on the same test set I report scores on, and the split was random rather than by date, so the scores are probably a little optimistic; a separate validation set and a time-based test set would fix both",
+          "Next steps: add weather data, extend the data to several airports, and try gradient boosting models such as XGBoost or LightGBM"
+        ]
+      }
+    ]
+  },
+  {
     "id": "maritime-trade-risk",
     "title": "Maritime Trade Risk: Which Goods Cannot Leave the Sea?",
     "kind": "SQL Server, Power BI, Python",
@@ -1287,138 +1454,6 @@ const PROJECTS = [
         "h": "Conclusion",
         "text": [
           "Money does buy some happiness: national income rises alongside well-being across the globe. But wealth is not the whole story. Social support and perceptions of corruption are important determinants in their own right, and in some cases they can override the GDP advantage, making some of the world's richest nations outscored on happiness by far poorer ones."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "beauty-labor-market",
-    "title": "Beauty & the Labor Market: Replicating Hamermesh & Biddle (1994)",
-    "kind": "Stata, Econometrics",
-    "tags": [
-      "Paper Replication",
-      "OLS + Robust SEs",
-      "Interaction Model",
-      "Margins"
-    ],
-    "teaser": "Replicated a published study on whether looks affect wages, then extended it to test whether the effect is stronger in service jobs.",
-    "lede": "Do attractive people earn more, and if so, is it because looks make them more productive or because employers discriminate? I replicated Hamermesh and Biddle's 1994 American Economic Review study using the 1977 Quality of Employment Survey, compared my estimates critically with the original, and extended the model to test whether appearance matters more in customer-facing service jobs.",
-    "facts": [
-      {
-        "k": "Tools",
-        "v": "Stata"
-      },
-      {
-        "k": "Methods",
-        "v": "OLS with robust standard errors, interaction terms, margins"
-      },
-      {
-        "k": "Data",
-        "v": "1977 Quality of Employment Survey: 824 men and 436 women (154 and 191 in services)"
-      },
-      {
-        "k": "Original paper",
-        "v": "Hamermesh & Biddle (1994), American Economic Review"
-      }
-    ],
-    "lists": [
-      {
-        "h": "At a glance",
-        "items": [
-          "The core result replicates: with controls, workers rated below average in looks earn significantly less, for both men and women",
-          "My controlled penalties (−0.143 for men, −0.115 for women) are close to, and slightly smaller than, the original's",
-          "The premium for above-average looks is small and statistically insignificant in both studies",
-          "Looks appear to matter more in service jobs, but the subsample is too small for a firm conclusion"
-        ]
-      }
-    ],
-    "sections": [
-      {
-        "h": "The question",
-        "text": [
-          "Economists had long studied discrimination by race, gender, and disability, but appearance had been largely neglected. Beauty is a particularly interesting case because, unlike race or gender, it could plausibly affect productivity in jobs such as sales or customer service, which makes it possible to separate a productivity explanation from pure employer discrimination.",
-          "The question also matters for policy. Michigan has banned weight-based discrimination since the 1970s and New York City extended protections in 2023, but no broader law covers physical appearance. Hamermesh and Biddle found that plain-looking workers earn 7 to 9% less, independent of height and weight, which suggests that existing laws may be missing an important dimension of labor-market inequality."
-        ]
-      },
-      {
-        "h": "Data, and how my replication differs",
-        "text": [
-          "The original study combined three surveys; I had access to one, the 1977 Quality of Employment Survey. After applying the authors' sample restrictions, my sample contains 824 men and 436 women, compared with 959 and 539 in the original. Interviewers rated each respondent's appearance on a five-point scale, which I collapsed into below average, average, and above average, exactly as the authors did.",
-          "My specification also differs in several ways: education is measured in continuous years rather than degree categories, industry is captured by a single service-sector indicator, and tenure, plant size, and vocational training are unavailable. These differences explain why my models with controls have a lower R² (0.308 for men and 0.300 for women, against 0.403 and 0.330 in the original)."
-        ]
-      },
-      {
-        "h": "Is my sample representative?",
-        "text": [
-          "Despite being smaller, my sample mirrors the original closely. About 59% of men and 53% of women are rated average in both datasets, and the share rated above average differs by only about one percentage point. Two patterns from the original reappear: far more workers are rated above average than below average, and women's ratings are more spread out than men's, consistent with research showing that women's appearance tends to provoke stronger reactions in both directions."
-        ],
-        "figures": [
-          {
-            "src": "img/beauty-labor-market/looks-distribution.png",
-            "title": "Distribution of looks ratings",
-            "caption": "My distribution (left) next to the original QES distribution (right). The shares in each category differ by only one to two percentage points."
-          }
-        ]
-      },
-      {
-        "h": "Replication results",
-        "text": [
-          "The main finding replicates. With the full set of controls, workers rated below average earn significantly less than average-looking workers: −0.143 log points for men, or about 13% less, and −0.115 for women, or about 11% less. These estimates are close to the original's −0.164 and −0.124, and they are significant at the same levels: 1% for men and 10% for women.",
-          "Without controls, the penalties are larger (−0.199 for men and −0.138 for women), so part of the raw gap reflects differences in experience, education, and other characteristics. As in the original, the penalty is larger for men than for women, and the premium for above-average looks is small and statistically insignificant for both sexes, confirming that plainness is penalized more reliably than beauty is rewarded."
-        ],
-        "figures": [
-          {
-            "src": "img/beauty-labor-market/table3-corrected.png",
-            "title": "Table 3. The impact of looks on earnings",
-            "caption": "Men and women without controls (columns 1 and 3) and with the full set of controls (columns 2 and 4), compared with Hamermesh and Biddle's controlled estimates."
-          }
-        ]
-      },
-      {
-        "h": "Does the gap persist within occupations?",
-        "text": [
-          "Hamermesh and Biddle argued that if attractive workers simply sorted into jobs where looks raise productivity, the beauty gap should shrink once occupation is taken into account. It did not: below-average-looking men still faced penalties of roughly 16 to 19% after controlling for occupation, which points toward employer discrimination. Restricting my sample to service-sector workers approximates their test.",
-          "For men in services, the below-average penalty (−0.185 log points) is close to the original's occupation-controlled estimates, while the effect of above-average looks is essentially zero (−0.016). For women, the penalty is −0.091 and the premium rises to +0.112, consistent with the idea that looks matter more for women in customer-facing roles. With only 154 men and 191 women in the subsample, however, none of these estimates is statistically significant, so they are directionally consistent with the original rather than a firm confirmation."
-        ],
-        "figures": [
-          {
-            "src": "img/beauty-labor-market/service-sector-table.png",
-            "title": "Service-sector results vs. the original",
-            "caption": "My service-sector regressions for men (1) and women (2), next to the original Table 9, which controls for occupation."
-          },
-          {
-            "src": "img/beauty-labor-market/wage-by-looks.png",
-            "title": "Figure 1. Mean log wage by looks",
-            "caption": "Above-average-looking workers earn more than below-average-looking workers, both in the service sector (left) and across all sectors (right), for men and women alike."
-          }
-        ]
-      },
-      {
-        "h": "Extension: do looks matter more in service jobs?",
-        "text": [
-          "To test the mechanism directly, I interacted the five-point looks rating with a service-sector indicator and used margins to compare predicted wages at each rating. Outside services, each one-point increase in looks is associated with about 3% higher wages; within services, the gradient rises to about 10%. The difference between the two slopes is not statistically significant (p = 0.223), however, and the confidence intervals are wide, particularly at low ratings, which again reflects the small subsample."
-        ],
-        "figures": [
-          {
-            "src": "img/beauty-labor-market/margins.png",
-            "title": "Figure 2. Predicted wages by looks and sector",
-            "caption": "Predicted log wage at each looks rating for service and non-service workers. The service-sector gradient is steeper, but the confidence intervals overlap."
-          }
-        ]
-      },
-      {
-        "h": "The Stata code",
-        "text": [
-          "The core of the do-file, which reproduces every estimate on this page from the original QES data."
-        ],
-        "code": "* Table 3: impact of looks on earnings, without and with controls\nglobal controls exper expersq educ union married black goodhlth ///\n                service bigcity smllcity south\nreg lwage belavg abvavg if female == 0, robust\nreg lwage belavg abvavg $controls if female == 0, robust\nreg lwage belavg abvavg if female == 1, robust\nreg lwage belavg abvavg $controls if female == 1, robust\n\n* Tables 8-9: service-sector workers only\nreg lwage belavg abvavg if service == 1 & female == 0, robust\nreg lwage belavg abvavg if service == 1 & female == 1, robust\n\n* Figure 1: mean log wage, below- vs. above-average looks\ncapture drop below\ngen below = .\nreplace below = 1 if belavg == 1\nreplace below = 0 if abvavg == 1\ngraph bar lwage, over(below) by(female) ytitle(\"Mean Log Wage\")\ngraph bar lwage if service == 1, over(below) by(female) ytitle(\"Mean Log Wage\")\n\n* Figure 2 (extension): does the looks gradient differ in service jobs?\nreg lwage looks i.service c.looks#i.service, robust\nmargins i.service, at(looks = (1 2 3 4 5))\nmarginsplot, title(\"Predicted Log Wage by Looks: Service vs Non-Service\")"
-      },
-      {
-        "h": "Limitations and next steps",
-        "text": [
-          "The most important limitation is identification. Like the original, this replication relies on a single interviewer rating and cross-sectional regressions, which leaves room for omitted variables and for reverse causation, since higher earnings may allow people to invest more in their appearance. Panel data with individual fixed effects would make it possible to test whether changes in perceived attractiveness are associated with changes in wages, net of fixed personal traits, and designs built around observable changes in appearance could strengthen causal claims further.",
-          "Measurement could also be improved. Combining several standardized ratings instead of a single interviewer's judgment would reduce measurement error, and a larger service-sector sample would give the occupational test the statistical power it currently lacks.",
-          "Finally, the data come from the 1970s, and labor markets and social norms have changed considerably since then. Replicating the study with contemporary data is important, but explicitly rating workers' physical attractiveness today would raise serious concerns about fairness, harassment, and bias. Future research would therefore need less intrusive and more ethically acceptable measures of appearance, framed to study inequality rather than reinforce it."
         ]
       }
     ]
