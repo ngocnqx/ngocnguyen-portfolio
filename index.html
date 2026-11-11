@@ -123,7 +123,10 @@ nav.main a:hover { color: var(--accent-ink); }
   line-height: 0.95; font-weight: 600; margin: 0 0 clamp(0.9rem, 2.5vh, 1.6rem); color: var(--ink);
 }
 .hero h1 .last { display: block; font-style: italic; font-weight: 500; color: var(--accent-lg); padding-left: 0.12em; }
-.hero .seeking { max-width: 36rem; color: var(--ink); font-size: 1.12rem; font-weight: 500; line-height: 1.5; margin: 0 0 clamp(0.7rem, 2vh, 1.1rem); }
+.hero .seeking { max-width: 36rem; margin: 0 0 clamp(0.8rem, 2.2vh, 1.2rem); }
+.hero .seeking-label { display: block; color: var(--accent-ink); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.hero .seeking-roles { display: block; color: var(--ink); font-size: 1.15rem; font-weight: 500; line-height: 1.45; }
+.hero .seeking-roles span { white-space: nowrap; }
 .hero .pitch { max-width: 36rem; font-size: 1.02rem; line-height: 1.7; color: var(--ink-soft); margin: 0 0 clamp(0.9rem, 2.5vh, 1.5rem); }
 .hero .quote { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; color: var(--accent-ink); font-size: 1.25rem; margin: 0 0 clamp(1rem, 3vh, 1.75rem); }
 .actions { display: flex; flex-wrap: wrap; gap: 1.25rem; }
@@ -312,7 +315,7 @@ footer .links a:hover { color: var(--accent-ink); }
       <div>
         <p class="role">Data Analyst &middot; Data Science</p>
         <h1>Ngoc<span class="last">Nguyen</span></h1>
-        <p class="seeking">Open to Summer 2027 internships: Data Analyst &middot; Business Intelligence &middot; Data Science</p>
+        <p class="seeking"><span class="seeking-label">Open to Summer 2027 internships</span><span class="seeking-roles"><span>Data Analyst</span> &middot; <span>Business Intelligence</span> &middot; <span>Data Science</span></span></p>
         <p class="pitch">Junior at Dickinson College triple majoring in Data Analytics, Finance, and Quantitative Economics. I believe everything happens for a reason, so I&#39;ve always been curious about the causes behind everything. I use my technical skills in SQL, Python, and Power BI to translate data into real impact, and I like ending every analysis with a next step a team can act on.</p>
         <div class="actions">
           <a class="btn primary" href="#projects">View projects &rarr;</a>
