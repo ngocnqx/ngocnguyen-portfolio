@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ngoc Nguyen | Data Analyst &amp; Data Science Portfolio</title>
+<title>Ngoc Nguyen | Data Analyst &amp; Business Intelligence Portfolio</title>
 <meta name="description" content="Data analytics and data science portfolio of Ngoc Nguyen: SQL, Python, Power BI, and statistical modeling. Triple major in Data Analytics, Finance, and Quantitative Economics at Dickinson College.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -309,7 +309,7 @@ footer .links a:hover { color: var(--accent-ink); }
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <p class="role">Data Analyst &middot; Data Science</p>
+        <p class="role">Data Analyst &middot; Business Intelligence</p>
         <h1>Ngoc<span class="last">Nguyen</span></h1>
         <p class="pitch">Junior at Dickinson College triple majoring in Data Analytics, Finance, and Quantitative Economics. I believe everything happens for a reason, so I&#39;ve always been curious about the causes behind everything. I use my technical skills in SQL, Python, and Power BI to translate data into real impact, and I like ending every analysis with a next step a team can act on.</p>
         <div class="actions">
@@ -364,7 +364,7 @@ footer .links a:hover { color: var(--accent-ink); }
         <div class="skill-group">
           <h4>Analytics &amp; data</h4>
           <ul class="tags">
-            <li class="tag">Python (pandas, statsmodels, scikit-learn)</li><li class="tag">SQL (SQL Server, SQLite)</li><li class="tag">Power BI / DAX</li>
+            <li class="tag">Python (pandas, statsmodels, scikit-learn)</li><li class="tag">SQL (SQL Server, SQLite)</li><li class="tag">SQL: CTEs, window functions, stored procedures</li><li class="tag">Power BI / DAX</li>
             <li class="tag">Excel / Power Query</li><li class="tag">Tableau</li><li class="tag">Qlik Cloud</li>
             <li class="tag">R</li><li class="tag">Stata</li><li class="tag">ETL / Star Schema</li><li class="tag">API Integration</li><li class="tag">Web Scraping</li><li class="tag">Jupyter</li>
           </ul>
@@ -373,7 +373,7 @@ footer .links a:hover { color: var(--accent-ink); }
           <h4>Modeling</h4>
           <ul class="tags">
             <li class="tag">Regression</li><li class="tag">Logistic Regression</li><li class="tag">Random Forest</li>
-            <li class="tag">K-means</li><li class="tag">RFM Segmentation</li><li class="tag">Quantile Regression</li><li class="tag">Fixed Effects</li><li class="tag">Oaxaca-Blinder</li><li class="tag">Econometrics</li>
+            <li class="tag">K-means</li><li class="tag">RFM Segmentation</li><li class="tag">Quantile Regression</li><li class="tag">Hypothesis Testing</li><li class="tag">Fixed Effects</li><li class="tag">Oaxaca-Blinder</li><li class="tag">Econometrics</li>
           </ul>
         </div>
         <div class="skill-group">
@@ -431,7 +431,7 @@ footer .links a:hover { color: var(--accent-ink); }
   <div class="wrap">
     <div>
       <p class="f-name">Ngoc Nguyen</p>
-      <p class="f-sub">Data Analyst &middot; Data Science &middot; Carlisle, PA</p>
+      <p class="f-sub">Data Analyst &middot; Business Intelligence &middot; Carlisle, PA</p>
     </div>
     <nav class="links" aria-label="Contact">
       <a href="mailto:nguyengo@dickinson.edu">Email</a>
@@ -550,6 +550,171 @@ const LEADERSHIP = [
    (e.g. a folder called img/). If an image is missing, a labeled
    placeholder box shows instead, so you can see what still needs adding. */
 const PROJECTS = [
+  {
+    "id": "maritime-trade-risk",
+    "title": "Maritime Trade Risk: Which Goods Cannot Leave the Sea?",
+    "kind": "SQL Server, Power BI, Python",
+    "tags": [
+      "UN Comtrade API",
+      "SQL Server",
+      "Star Schema",
+      "Power BI",
+      "Data Quality"
+    ],
+    "teaser": "Which goods would get stuck if a major shipping route closed? A look at $33T of trade across 1,288 products, and which of them could not simply be flown instead.",
+    "lede": "If a major shipping route closed tomorrow, which goods would stop moving, and which could just be flown instead? I pulled $33 trillion of UN Comtrade trade data, covering 1,288 products, 11 reporting countries, and three years, and built a seven-page Power BI dashboard framed for a supply-chain risk team. While checking the data, I also found a mislabeled column that had flipped the original report's conclusion.",
+    "facts": [
+      {
+        "k": "Tools",
+        "v": "Python (Comtrade API), SQL Server, Power BI, DAX"
+      },
+      {
+        "k": "Data",
+        "v": "UN Comtrade API (284,506 rows) for 11 reporting countries, 2021 to 2023, plus the original 9,948-row extract"
+      },
+      {
+        "k": "Key metrics",
+        "v": "Sea dependency, air feasibility (0 to 1), and a combined risk score with High, Medium, and Low tiers"
+      },
+      {
+        "k": "Question",
+        "v": "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?"
+      }
+    ],
+    "lists": [
+      {
+        "h": "At a glance",
+        "items": [
+          "Sea freight carries about a third of trade value, 2.8 times as much as air",
+          "Energy, food, and textiles depend on the sea most; electronics depend on it least",
+          "272 high-risk products hold 64% of sea-shipped value, and almost none of them can realistically fly",
+          "Brazil, Viet Nam, Türkiye, and Malaysia are the most exposed trading partners",
+          "Correcting one faulty data column reversed the original report's conclusion"
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "h": "How trade moves",
+        "text": [
+          "Across the 11 reporting countries, trade from 2021 to 2023 totals $33.3 trillion. Sea freight carries 34.2% of that value, 2.76 times as much as air, although road is the single largest mode.",
+          "The mix barely changes from year to year: maritime transport accounts for roughly a third of value in every year, while land modes carry between about 40 and 47%. Total trade value in the latest year was 3.2% lower than in the year before."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/modes.png",
+            "title": "Trade value by transport mode",
+            "caption": "Left: total trade value by mode. Right: each mode group's share by year, which barely changes from 2021 to 2023."
+          }
+        ]
+      },
+      {
+        "h": "Which goods depend on the sea",
+        "text": [
+          "Some categories depend on the sea much more than others. Energy & Fuels is the most exposed, with 57.9% of its value moving by sea, followed by Agriculture & Food (42.8%) and Textiles & Apparel (40.4%). Electronics & Machinery, the largest category at $9.0 trillion, relies on the sea least (23.4%) and on air most (27.6%).",
+          "Value per kilogram explains much of this pattern. Electronics are worth $22.84 per kilogram, which makes air freight economical; energy products are worth just $0.48, so they have little choice but to travel by sea."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/category-sea-share.png",
+            "title": "Sea dependency by category",
+            "caption": "Share of each category's trade value moving by sea. Energy & Fuels leads at 58%."
+          },
+          {
+            "src": "img/maritime-trade-risk/category-table.png",
+            "title": "Category detail",
+            "caption": "Trade value, sea dependency, air share, and value per kilogram for each category. The dashboard lets users drill down to HS chapter and product level."
+          }
+        ]
+      },
+      {
+        "h": "Where the risk is concentrated",
+        "text": [
+          "To measure risk, I scored every product on two dimensions: how dependent it is on the sea, and how feasible air freight would be as an alternative. Products in the bottom-right corner of the chart, heavily sea-dependent and impossible to fly, carry the highest risk.",
+          "272 high-risk products, with an average risk score of 0.64 out of 1, account for 63.9% of all sea-shipped value. The list is dominated by bulk commodities, including soybeans, palm oil, refined petroleum, oil-cake, sugar, fertilizers, semi-finished steel, maize, and wheat, most of which are worth about $1 per kilogram or less."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/risk-scatter.png",
+            "title": "Sea dependency vs. air feasibility",
+            "caption": "Each bubble is a product, sized by trade value and colored by risk tier. High-risk products cluster in the bottom right: sea-bound and unable to fly."
+          },
+          {
+            "src": "img/maritime-trade-risk/risk-products.png",
+            "title": "The highest-risk products",
+            "caption": "Sea-bound goods that cannot realistically switch to air, led by soybeans, palm oil, and refined petroleum."
+          }
+        ]
+      },
+      {
+        "h": "Which countries are most exposed",
+        "text": [
+          "Some countries are far more exposed than others. Brazil moves 82.7% of its trade by sea, led by agricultural exports, followed by Viet Nam (61.4%), Türkiye (56.2%), Malaysia (56.1%), and Thailand (52.3%). At the other end of the scale, Germany, the largest trader in the sample at $9.6 trillion, moves just 21.1% of its trade by sea."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/country-sea-share.png",
+            "title": "Sea dependency by country",
+            "caption": "Share of each reporting country's trade that moves by sea."
+          },
+          {
+            "src": "img/maritime-trade-risk/country-table.png",
+            "title": "Country exposure detail",
+            "caption": "Sea dependency, total trade value, and the most sea-dependent category for each country."
+          }
+        ]
+      },
+      {
+        "h": "How concentrated trade is",
+        "text": [
+          "A small number of products dominate trade value. Passenger cars are the single largest product at about $1.6 trillion, followed by crude oil, unspecified commodities, and refined petroleum. The ten largest products alone account for roughly 27% of total trade value."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/pareto.png",
+            "title": "Top products and cumulative share",
+            "caption": "Bars show the ten largest products by value; the line shows their cumulative share of total trade."
+          }
+        ]
+      },
+      {
+        "h": "Getting the data right",
+        "text": [
+          "The most useful thing I found came from checking the data itself. In the legacy extract, the column labeled as trade value actually recorded small counts rather than dollars: every one of its 9,948 rows was 100 or less. Using it as money had reversed the conclusion of the original report, so the legacy data is now valued using FOB values instead.",
+          "I then built 19 automated data-quality rules across the API and legacy sources, each with a documented decision, from rejecting a row to flagging it for disclosure. For example, 40% of API rows carry weights estimated by the UN, which are kept but disclosed. I also rebuilt the product classifier: on 100 randomly chosen, hand-checked products, accuracy rose from 54% with the original keywords to 88% with improved keywords and 94% with official HS chapters."
+        ],
+        "figures": [
+          {
+            "src": "img/maritime-trade-risk/data-quality.png",
+            "title": "Data-quality rules",
+            "caption": "Every rule, how many rows failed it, and the decision taken. The checks run on every refresh."
+          }
+        ]
+      },
+      {
+        "h": "How the pipeline works",
+        "text": [
+          "The project runs from API extraction all the way to the report, so any number on the dashboard can be traced back to the raw API data."
+        ],
+        "bullets": [
+          "Extraction: a Python notebook pulls 284,506 rows from the UN Comtrade API, covering every HS4 product by transport mode for the 11 reporting countries that publish mode-of-transport detail",
+          "Warehouse: raw data lands in SQL Server staging tables, and a stored procedure loads a star schema (a trade fact table with commodity, category, transport mode, flow, reporter, and year dimensions) using MERGE upserts, transactions with TRY/CATCH, and an ETL log",
+          "Analysis layer: reporting views built with CTEs and window functions (RANK, PERCENT_RANK, LAG, running totals, and PERCENTILE_CONT) feed the dashboard, alongside a view of data-quality checks",
+          "Report: Power BI imports only from the reporting views, with DAX measures for share, sea dependency, value per kilogram, year-on-year change, Pareto, and Top N, plus drill-through and insight titles driven by DAX"
+        ]
+      },
+      {
+        "h": "Recommendations",
+        "bullets": [
+          "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
+          "Focus monitoring on the most sea-exposed trading partners: Brazil, Viet Nam, Malaysia, and Türkiye",
+          "Reserve air capacity for the short list of valuable sea-shipped goods, which make up only 0.13% of sea value",
+          "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
+          "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
+        ]
+      }
+    ]
+  },
   {
     "id": "flight-delay-mdt",
     "title": "Which Flights Out of Harrisburg Arrive Late? Predicting Delays with Machine Learning",
@@ -902,171 +1067,6 @@ const PROJECTS = [
           "Concentrate social-media spend on popular Vietnamese comedies and romances in their first week of release, timed to the four windows that drive demand: Christmas (22 to 27 December), the New Year (28 December to 2 January), Lunar New Year, and the 30 April to 1 May holiday",
           "Launch weekend family bundles from Thursday to Sunday on animation, adventure, and fantasy titles, such as discounts on four or more tickets, child pricing, and complimentary popcorn or drinks",
           "Partner on ride-hailing vouchers to and from cinemas on weekends and family-heavy days, lowering the practical barrier to a trip to the cinema"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "maritime-trade-risk",
-    "title": "Maritime Trade Risk: Which Goods Cannot Leave the Sea?",
-    "kind": "SQL Server, Power BI, Python",
-    "tags": [
-      "UN Comtrade API",
-      "SQL Server",
-      "Star Schema",
-      "Power BI",
-      "Data Quality"
-    ],
-    "teaser": "Which goods would get stuck if a major shipping route closed? A look at $33T of trade across 1,288 products, and which of them could not simply be flown instead.",
-    "lede": "If a major shipping route closed tomorrow, which goods would stop moving, and which could just be flown instead? I pulled $33 trillion of UN Comtrade trade data, covering 1,288 products, 11 reporting countries, and three years, and built a seven-page Power BI dashboard framed for a supply-chain risk team. While checking the data, I also found a mislabeled column that had flipped the original report's conclusion.",
-    "facts": [
-      {
-        "k": "Tools",
-        "v": "Python (Comtrade API), SQL Server, Power BI, DAX"
-      },
-      {
-        "k": "Data",
-        "v": "UN Comtrade API (284,506 rows) for 11 reporting countries, 2021 to 2023, plus the original 9,948-row extract"
-      },
-      {
-        "k": "Key metrics",
-        "v": "Sea dependency, air feasibility (0 to 1), and a combined risk score with High, Medium, and Low tiers"
-      },
-      {
-        "k": "Question",
-        "v": "Where is trade most exposed to a sea-freight disruption, and where would air freight not help?"
-      }
-    ],
-    "lists": [
-      {
-        "h": "At a glance",
-        "items": [
-          "Sea freight carries about a third of trade value, 2.8 times as much as air",
-          "Energy, food, and textiles depend on the sea most; electronics depend on it least",
-          "272 high-risk products hold 64% of sea-shipped value, and almost none of them can realistically fly",
-          "Brazil, Viet Nam, Türkiye, and Malaysia are the most exposed trading partners",
-          "Correcting one faulty data column reversed the original report's conclusion"
-        ]
-      }
-    ],
-    "sections": [
-      {
-        "h": "How trade moves",
-        "text": [
-          "Across the 11 reporting countries, trade from 2021 to 2023 totals $33.3 trillion. Sea freight carries 34.2% of that value, 2.76 times as much as air, although road is the single largest mode.",
-          "The mix barely changes from year to year: maritime transport accounts for roughly a third of value in every year, while land modes carry between about 40 and 47%. Total trade value in the latest year was 3.2% lower than in the year before."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/modes.png",
-            "title": "Trade value by transport mode",
-            "caption": "Left: total trade value by mode. Right: each mode group's share by year, which barely changes from 2021 to 2023."
-          }
-        ]
-      },
-      {
-        "h": "Which goods depend on the sea",
-        "text": [
-          "Some categories depend on the sea much more than others. Energy & Fuels is the most exposed, with 57.9% of its value moving by sea, followed by Agriculture & Food (42.8%) and Textiles & Apparel (40.4%). Electronics & Machinery, the largest category at $9.0 trillion, relies on the sea least (23.4%) and on air most (27.6%).",
-          "Value per kilogram explains much of this pattern. Electronics are worth $22.84 per kilogram, which makes air freight economical; energy products are worth just $0.48, so they have little choice but to travel by sea."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/category-sea-share.png",
-            "title": "Sea dependency by category",
-            "caption": "Share of each category's trade value moving by sea. Energy & Fuels leads at 58%."
-          },
-          {
-            "src": "img/maritime-trade-risk/category-table.png",
-            "title": "Category detail",
-            "caption": "Trade value, sea dependency, air share, and value per kilogram for each category. The dashboard lets users drill down to HS chapter and product level."
-          }
-        ]
-      },
-      {
-        "h": "Where the risk is concentrated",
-        "text": [
-          "To measure risk, I scored every product on two dimensions: how dependent it is on the sea, and how feasible air freight would be as an alternative. Products in the bottom-right corner of the chart, heavily sea-dependent and impossible to fly, carry the highest risk.",
-          "272 high-risk products, with an average risk score of 0.64 out of 1, account for 63.9% of all sea-shipped value. The list is dominated by bulk commodities, including soybeans, palm oil, refined petroleum, oil-cake, sugar, fertilizers, semi-finished steel, maize, and wheat, most of which are worth about $1 per kilogram or less."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/risk-scatter.png",
-            "title": "Sea dependency vs. air feasibility",
-            "caption": "Each bubble is a product, sized by trade value and colored by risk tier. High-risk products cluster in the bottom right: sea-bound and unable to fly."
-          },
-          {
-            "src": "img/maritime-trade-risk/risk-products.png",
-            "title": "The highest-risk products",
-            "caption": "Sea-bound goods that cannot realistically switch to air, led by soybeans, palm oil, and refined petroleum."
-          }
-        ]
-      },
-      {
-        "h": "Which countries are most exposed",
-        "text": [
-          "Some countries are far more exposed than others. Brazil moves 82.7% of its trade by sea, led by agricultural exports, followed by Viet Nam (61.4%), Türkiye (56.2%), Malaysia (56.1%), and Thailand (52.3%). At the other end of the scale, Germany, the largest trader in the sample at $9.6 trillion, moves just 21.1% of its trade by sea."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/country-sea-share.png",
-            "title": "Sea dependency by country",
-            "caption": "Share of each reporting country's trade that moves by sea."
-          },
-          {
-            "src": "img/maritime-trade-risk/country-table.png",
-            "title": "Country exposure detail",
-            "caption": "Sea dependency, total trade value, and the most sea-dependent category for each country."
-          }
-        ]
-      },
-      {
-        "h": "How concentrated trade is",
-        "text": [
-          "A small number of products dominate trade value. Passenger cars are the single largest product at about $1.6 trillion, followed by crude oil, unspecified commodities, and refined petroleum. The ten largest products alone account for roughly 27% of total trade value."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/pareto.png",
-            "title": "Top products and cumulative share",
-            "caption": "Bars show the ten largest products by value; the line shows their cumulative share of total trade."
-          }
-        ]
-      },
-      {
-        "h": "Getting the data right",
-        "text": [
-          "The most useful thing I found came from checking the data itself. In the legacy extract, the column labeled as trade value actually recorded small counts rather than dollars: every one of its 9,948 rows was 100 or less. Using it as money had reversed the conclusion of the original report, so the legacy data is now valued using FOB values instead.",
-          "I then built 19 automated data-quality rules across the API and legacy sources, each with a documented decision, from rejecting a row to flagging it for disclosure. For example, 40% of API rows carry weights estimated by the UN, which are kept but disclosed. I also rebuilt the product classifier: on 100 randomly chosen, hand-checked products, accuracy rose from 54% with the original keywords to 88% with improved keywords and 94% with official HS chapters."
-        ],
-        "figures": [
-          {
-            "src": "img/maritime-trade-risk/data-quality.png",
-            "title": "Data-quality rules",
-            "caption": "Every rule, how many rows failed it, and the decision taken. The checks run on every refresh."
-          }
-        ]
-      },
-      {
-        "h": "How the pipeline works",
-        "text": [
-          "The project runs from API extraction all the way to the report, so any number on the dashboard can be traced back to the raw API data."
-        ],
-        "bullets": [
-          "Extraction: a Python notebook pulls 284,506 rows from the UN Comtrade API, covering every HS4 product by transport mode for the 11 reporting countries that publish mode-of-transport detail",
-          "Warehouse: raw data lands in SQL Server staging tables, and a stored procedure loads a star schema (a trade fact table with commodity, category, transport mode, flow, reporter, and year dimensions) using MERGE upserts, transactions with TRY/CATCH, and an ETL log",
-          "Analysis layer: reporting views built with CTEs and window functions (RANK, PERCENT_RANK, LAG, running totals, and PERCENTILE_CONT) feed the dashboard, alongside a view of data-quality checks",
-          "Report: Power BI imports only from the reporting views, with DAX measures for share, sea dependency, value per kilogram, year-on-year change, Pareto, and Top N, plus drill-through and insight titles driven by DAX"
-        ]
-      },
-      {
-        "h": "Recommendations",
-        "bullets": [
-          "Prioritize contingency plans for bulk agriculture, fertilizer, refined fuel, and steel, such as alternative ports and routes and larger safety stocks, because air freight cannot absorb these goods",
-          "Focus monitoring on the most sea-exposed trading partners: Brazil, Viet Nam, Malaysia, and Türkiye",
-          "Reserve air capacity for the short list of valuable sea-shipped goods, which make up only 0.13% of sea value",
-          "On EU and North American lanes, invest in rail and road capacity, since land transport already carries about 44% of trade value",
-          "Keep the automated data-quality checks in every refresh so that a single faulty column can never again overturn the analysis"
         ]
       }
     ]
@@ -1536,7 +1536,7 @@ function route() {
   } else {
     const wasViewing = document.body.classList.contains("viewing");
     document.body.classList.remove("viewing");
-    document.title = "Ngoc Nguyen | Data Analyst & Data Science Portfolio";
+    document.title = "Ngoc Nguyen | Data Analyst & Business Intelligence Portfolio";
     const target = id && document.getElementById(id);
     if (target) target.scrollIntoView();
     else if (wasViewing) document.getElementById("projects").scrollIntoView();
